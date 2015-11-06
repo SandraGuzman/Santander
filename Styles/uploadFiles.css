@@ -1,0 +1,46 @@
+@charset "UTF-8";
+/* CSS Document */
+/*------------------------------------*\
+    $ELEMENTS
+\*------------------------------------*/
+.bannerHeader {
+	background-color: #F8F8F8;
+}
+/*** content ***/
+.content {
+	background-color: #F8F8F8;
+}
+.closeBackMenu {
+	width: 100%;
+}
+.subCloseBackMenuList {
+	width: 100%;
+	padding: 0;
+	margin: 0;
+	display:table;
+	text-align: center;
+	list-style: none;
+	table-layout: fixed;
+}
+.navItem {
+	display:table-cell;
+	text-align: center;
+	line-height: 47px;
+	text-decoration: none;
+	color:  #fa0011;
+}
+.navItem a {
+	color:#fa0011;
+	text-decoration: none;
+}
+/*------------------------------------*\
+    $MEDIA ELEMENTS
+\*------------------------------------*/
+@media screen and (min-width: 320px)  and (max-width: 480px) { 
+}
+@media screen and (max-width: 960px) {
+
+}
+@media screen and (min-width:961px) {
+
+}

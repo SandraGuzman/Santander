@@ -1,0 +1,218 @@
+<!doctype html>
+<html>
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<title>Inicio</title>
+<link rel="stylesheet" href="Styles/main.css">
+<link rel="stylesheet" href="Styles/home.css">
+<link rel="stylesheet" href="Styles/mainResponsiveStandardDevices.css">
+<script src="Scripts/effects.js"></script>
+</head>
+
+<body>
+<header class="header">
+  <div class="header__inner"> <img class="header__logo" src="Images/LogoSantander.png" alt="Santander">
+    <nav id="mainMenu" class="navHor">
+      <ul class="navHor__List">
+        <li class="navHorList__item">INICIO</li>
+        <li class="navHorList__item">ACCIONISTAS</li>
+        <li class="navHorList__item">CONTACTO</li>
+        <li class="navHorList__item">ENGLISH</li>
+        <li class="navHorList__item">BUSCAR</li>
+      </ul>
+    </nav>
+    <a id="menu" class="header__menu" onClick="showMenu(event);">
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+      <path d="M2 6h20v3H2zm0 5h20v3H2zm0 5h20v3H2z"/>
+    </svg>
+    </a> </div>
+</header>
+<section class="backgroundHeader">
+  <picture>
+    <source
+          media="(max-width: 600px)"
+          sizes="100vw"
+          srcset="Images/Home/homeprincipal610.png 612w"/>
+    <source
+          media="(device-width: 768px)"
+          sizes="100vw"
+          srcset="Images/Home/homeprincipal768.png 865w"/>
+    <source 
+          media="(min-width: 850px)"
+          sizes="100vw , 100vh"
+          srcset="Images/Home/homeprincipal850.png 1200w"/>
+    <img
+          sizes="100vw"
+          src="Images/Home/homeprincipal.png"
+          alt="Inicio"> </picture>
+</section>
+<main onClick="hiddenMenu(event);">
+  <section class="bannerHeader">
+    <figure> <img src="Images/tituloencorchetes.png" alt="Relación con los inversionistas"> </figure>
+  </section>
+  <nav id="subMenu" class="subnavHor">
+    <ul id="subMenuList" class="subnavHor__List">
+      <li class="subnavHorList__item" onMouseOver="showDropDownMenu('IdDropDownList1');"  onMouseOut="hideDropDownMenu('IdDropDownList1');">ACERCA DEL GRUPO
+        <ul id="IdDropDownList1" class="dropDownNav">
+          <li class="dropDownNavItem"><a href="historia.html" >Historia</a></li>
+          <li class="dropDownNavItem"><a href="visionyvalores.html">Visión y valores</a></li>
+          <li class="dropDownNavItem"><a href="#">Estrategia</a></li>
+          <li class="dropDownNavItem"><a href="#">Estructura Corporativas</a></li>
+          <li class="dropDownNavItem"><a href="#">Premios y Reconocimientos</a></li>
+        </ul>
+      </li>
+      <li class="subnavHorList__item" onMouseOver="showDropDownMenu('IdDropDownList2');"  onMouseOut="hideDropDownMenu('IdDropDownList2');">GOBIERNO CORPORATIVO
+        <ul id="IdDropDownList2" class="dropDownNav">
+          <li class="dropDownNavItem"><a href="#">Consejo de Administración</a></li>
+          <li class="dropDownNavItem"><a href="#">Equipo Directivo</a></li>
+          <li class="dropDownNavItem"><a href="#">Estatutos y Políticas</a></li>
+          <li class="dropDownNavItem"><a href="#">Mejores practicas corporativas</a></li>
+          <li class="dropDownNavItem"><a href="#">Estructura Accionaria</a></li>
+          <li class="dropDownNavItem"><a href="#">Diferencias entre NYSE y BMV</a></li>
+        </ul>
+      </li>
+      <li class="subnavHorList__item" onMouseOver="showDropDownMenu('IdDropDownList3');" onMouseOut="hideDropDownMenu('IdDropDownList3');">INFORMACIÓN FINANCIERA
+        <ul id="IdDropDownList3" class="dropDownNav" >
+          <li class="dropDownNavItem"><a href="#">Información Trimestal</a></li>
+          <li class="dropDownNavItem"><a href="#">Información Anual</a></li>
+          <li class="dropDownNavItem"><a href="#">Memoria Anual</a></li>
+          <li class="dropDownNavItem"><a href="#">Capilazación</a></li>
+          <li class="dropDownNavItem"><a href="#">Subsidiarias</a></li>
+          <li class="dropDownNavItem"><a href="#">Dividendos</a></li>
+          <li class="dropDownNavItem"><a href="#">Estados Financieros Dictaminados</a></li>
+          <li class="dropDownNavItem"><a href="#">Series Historicas</a></li>
+          <li class="dropDownNavItem"><a href="#">Presentaciones</a></li>
+        </ul>
+      </li>
+      <li class="subnavHorList__item" onMouseOver="showDropDownMenu('IdDropDownList4');" onMouseOut="hideDropDownMenu('IdDropDownList4');">INFORMACIÓN PARA INVERSIONISTAS
+        <ul id="IdDropDownList4" class="dropDownNav">
+          <li class="dropDownNavItem"><a href="#">Carta a Inversionistas</a></li>
+          <li class="dropDownNavItem"><a href="#">Comunicados de Prensa</a></li>
+          <li class="dropDownNavItem"><a href="#">Eventos Relevantes</a></li>
+          <li class="dropDownNavItem"><a href="#">Analistas</a></li>
+          <li class="dropDownNavItem"><a href="#">Calificaciones</a></li>
+          <li class="dropDownNavItem"><a href="#">Contáctenos</a></li>
+          <li class="dropDownNavItem"><a href="#">Pregutas frecuentes</a></li>
+        </ul>
+      </li>
+    </ul>
+  </nav>
+  <section class="content">
+    <section class="santander">
+      <figure> <img src="Images/Home/home.png" alt> </figure>
+      <article class="description">
+        <header>
+          <h1>Grupo Financiero</h1>
+          <h1>Santander México</h1>
+        </header>
+        <p>Organic raw denim Vice keffiyeh lomo Kickstarter art lomo Kickstarter art four loko. Organic raw denim Vice keffiyeh lomo Kickstarter art lomo Kickstarter art four loko.Organic raw denim Vice keffiyeh lomo Kickstarter art lomo Kickstarter art four loko. Organic raw denim Vice keffiyeh lomo Kickstarter art lomo Kickstarter art four loko. Organic raw denim Vice keffiyeh lomo Kickstarter art lomo Kickstarter art four loko. Organic raw denim Vice keffiyeh lomo Kickstarter art lomo Kickstarter art four loko.</p>
+      </article>
+    </section>
+    <section class="finances">
+      <div class="finances__item">
+        <div class="finances__item_sidebar">
+          <h3>RESULTADOS FINANCIEROS (SANMEX)</h3>
+          <p>Historico</p>
+        </div>
+        <div class="finances__item_contentwrap">
+          <button type="button">2015</button>
+        </div>
+      </div>
+      <div class="finances__item">
+        <div class="finances__item_sidebar">
+          <h3>BOLETINES</h3>
+          <p>GRUPO FINANCIERO SANTANDER MÉXICO S.A.B. DE C.V. ANUNCIA QUE BANCO </p>
+        </div>
+        <div class="finances__item_contentwrap">
+          <button type="button">VER MAS</button>
+        </div>
+      </div>
+      <div class="finances__item">
+        <div class="finances__item_sidebar">
+          <p>Grupo Financiero Santander México S.A.B. de C.V., (BMV:SANMEX; NYSE:BSMX), uno </p>
+        </div>
+        <div class="finances__item_contentwrap">
+          <button type="button">VER MAS</button>
+        </div>
+      </div>
+      <div class="finances__item">
+        <div class="finances__item_sidebar">
+          <p>Próximo evento <br/>
+            18/04/2015 <br/>
+            Reporte de resultados</p>
+        </div>
+        <div class="finances__item_contentwrap">
+          <button type="button">VER MAS</button>
+        </div>
+      </div>
+      <div class="finances__item">
+        <div class="finances__item_sidebar">
+          <p>Próximo evento <br/>
+            18/04/2015 <br/>
+            Llamada de resultados</p>
+        </div>
+        <div class="finances__item_contentwrap">
+          <button type="button">VER MAS</button>
+        </div>
+      </div>
+    </section>
+    <section class="indicators">
+      <h3>INDICADORES</h3>
+      <table class="indicators__table">
+        <thead>
+          <tr>
+            <th>Bolsa</th>
+            <th>Divisas</th>
+            <th>Tasas</th>
+            <th>Indices</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>Bolsas</td>
+            <td>Pts</td>
+            <td>Var U</td>
+            <td>Var %</td>
+          </tr>
+          <tr>
+            <td>SANMEX</td>
+            <td>29.35</td>
+            <td>0.1</td>
+            <td>0.4</td>
+          </tr>
+          <tr>
+            <td>BSMX</td>
+            <td>9.31</td>
+            <td>0.1</td>
+            <td>0.1</td>
+          </tr>
+        </tbody>
+      </table>
+      <p>Actualización cada 25 min.</p>
+      <p>*Tipo de cambio de mercado</p>
+    </section>
+  </section>
+</main>
+<footer class="footer">
+  <div class="footer__inner">
+    <section class="anotherSites">
+      <header>
+        <h1>Otros sitios</h1>
+      </header>
+      <a href="">www.santander.com.mx</a> </section>
+    <section class="legal">
+      <header>
+        <h1>Información Legal</h1>
+      </header>
+      <a href="">Aviso de privacidad</a> <a href="">Grupo financiero Santander</a> </section>
+    <section class="socialMedia">
+      <header>
+        <h1>Redes sociales</h1>
+      </header>
+      <a href="">Facebook</a> <a href="">Twitter</a> </section>
+  </div>
+</footer>
+</body>
+</html>

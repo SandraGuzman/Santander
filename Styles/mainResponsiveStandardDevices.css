@@ -1,0 +1,115 @@
+@charset "UTF-8";
+/* CSS Document */
+/*------------------------------------*\
+    $TABLE OF CONTENTS
+\*------------------------------------*/
+/**
+ * MEDIA------------------------------
+ * .....min-width: 320px and max-width: 480px
+ * .....max-width 960px
+ * .....max-width: 1024px
+ * .....min-width:1025px
+ */
+
+.content {
+	display: flex;
+	flex-wrap: wrap;
+}
+.header__menu {
+	display: none;
+}
+
+@media screen and (min-width: 320px)  and (max-width: 480px) { /* smartphones, iPhone, portrait 480x320 phones */
+/* Header */
+.header__menu {
+	display: inline-block;
+	position: absolute;
+	right: 0;
+	padding: 1em;
+}
+.header__menu svg {
+	width: 32px;
+	fill: #E0E0E0;
+}
+/* Main Menu */
+.navHor {
+	z-index: 10;
+	width: 200px;
+	position: absolute;
+	-webkit-transform: translate(-500px, 45px);
+	transform: translate(-500px, 45px);
+	transition: transform 0.3s ease;
+}
+.navHor.open {
+	-webkit-transform: translate(-170px, 45px);
+	transform: translate(-170px, 45px);
+}
+.navHorList__item {
+	display: list-item;
+	width: 100%;
+	text-align: left;
+	font-size: 1.2em;
+	line-height: 40px;
+	border-right: none;
+	border-bottom: 2px solid #771112;
+}
+.navHorList__item:last-child {
+	border-bottom: none;
+}
+/* Banner Header */
+.bannerHeader {
+	text-align:center;
+}
+/*** Sub Menu ***/
+.subnavHor__List {
+	display: block;
+}
+.subnavHorList__item {
+	display: list-item;
+	width: 100%;
+	text-align: left;
+	line-height: 30px;
+	padding: 0px;
+	border-bottom: 2px solid #771112;
+	border-right: none;
+}
+.subnavHorList__item:last-child {
+	border-bottom: none;
+}
+/* DropDown menu */
+.dropDownNav {
+	position: relative;
+}
+.dropDownNavItem {
+	width: 100%;
+	display: list-item;
+	text-align: left;
+}
+/* Footer */
+.footer__inner section {
+	display: table-row;
+}
+}
+
+@media screen and (max-width: 960px) { /*portrait e-readers (Nook/Kindle), smaller tablets @ 600 or @ 640 wide.*/
+
+}
+
+@media (max-width: 1024px) { /* tablet, landscape iPad, lo-res laptops ands desktops */
+main {
+	width: 100%;
+}
+}
+
+@media screen and (min-width:1025px) { /* big landscape tablets, laptops, and desktops*/
+main, .header__inner, .content, .navHor, .subnavHor, .footer__inner {
+	width: 1000px;
+	margin-left: auto;
+	margin-right: auto;
+}
+}
+
+/*@media screen and (min-width:1281px) { 
+// hi-res laptops and desktops 
+
+}*/

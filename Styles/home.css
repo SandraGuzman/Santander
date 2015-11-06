@@ -1,0 +1,179 @@
+@charset "UTF-8";
+/* CSS Document */
+/*------------------------------------*\
+    $TABLE OF CONTENTS
+\*------------------------------------*/
+/**
+ * ELEMENTS---------------------------
+ * ..... Santander
+ * ..... Finances
+ * ..... Indicators
+ * MEDIA------------------------------
+ */
+ 
+/*------------------------------------*\
+    $ELEMENTS
+\*------------------------------------*/
+
+/*** Santander ***/
+.santander {
+	width: 100%;
+	background-color: #F8F8F8;
+}
+section.santander img {
+	width: 100%;
+	height: auto;
+}
+.description {
+	padding-left: 15px;
+	padding-right: 15px;
+}
+section.santander h1 {
+	color: #F10E12;
+	text-align: left;
+	font-weight: lighter;
+	font-size: 3em;
+	line-height: 0px;
+}
+section.santander p {
+	text-align: justify;
+	font-size: 1.2;
+}
+/*** Finances ***/
+.finances {
+	padding: 15px;
+	background-color: #F8F8F8;
+}
+.finances__item {
+	width: 100%;
+	display: table;
+}
+.finances__item_sidebar {
+	float: none;
+	width: 70%;
+	display: table-cell;
+}
+.finances__item_contentwrap {
+	float: none;
+	width: 30%;
+	display: table-cell;
+	vertical-align: bottom;
+}
+.finances__item button {
+	width: 100%;
+	text-decoration: none;
+	color: #F8F8F8;
+	border: none;
+	background: #F10E12;
+}
+/*** Indicators ***/
+.indicators {
+	padding: 15px;
+	background-color: #F8F8F8;
+}
+.indicators__table {
+	width: 100%;
+	border-collapse: collapse;
+}
+.indicators__table th {
+	color: #333;
+	font-weight: bold;
+}
+.indicators__table td, th {
+	padding: 6px;
+	border: 1px solid #ccc;
+	text-align: left;
+}
+/*------------------------------------*\
+    $MEDIA ELEMENTS
+\*------------------------------------*/
+@media screen and (min-width: 320px)  and (max-width: 480px) { 
+/*** Section Santander ***/
+.santander {
+	width: 100%;
+}
+/*** Section Finances ***/
+.finances {
+	order: 1;
+	width: 100%;
+}
+/*** Section Indicators ***/
+.indicators {
+	order: 2;
+	width: 100%;
+}
+.indicators__table thead, tbody, th, td, tr {
+	display: block;
+}
+.indicators__table thead tr {
+	position: absolute;
+	top: -9999px;
+	left: -9999px;
+}
+.indicators__table tr {
+	border: 1px solid #ccc;
+}
+.indicators__table td {
+	border: none;
+	border-bottom: 1px solid #eee;
+	position: relative;
+	padding-left: 50%;
+}
+.indicators__table td:before {
+	position: absolute;
+	top: 6px;
+	left: 6px;
+	width: 45%;
+	padding-right: 10px;
+	white-space: nowrap;
+}
+td:nth-of-type(1):before {
+	content: "Bolsa";
+}
+td:nth-of-type(2):before {
+	content: "Divisas";
+}
+td:nth-of-type(3):before {
+	content: "Tasas";
+}
+td:nth-of-type(4):before {
+	content: "Indices";
+}
+}
+@media screen and (max-width: 960px) {
+.santander {
+	width: 100%;
+}
+.finances {
+	order: 1;
+	width: 100%;
+}
+.indicators {
+	order: 2;
+	width: 100%;
+}
+.finances__item_contentwrap {
+	text-align: right;
+}
+.finances__item button {
+	width: 50%;
+	text-decoration: none;
+	color: #F8F8F8;
+	border: none;
+	background: #F10E12;
+}
+}
+@media screen and (min-width:961px) {
+.santander {
+	width: 50%;
+}
+.finances {
+	order: 1;
+	width: 25%;
+}
+.indicators {
+	order: 2;
+	width: 25%;
+}
+
+}

@@ -1,0 +1,140 @@
+@charset "UTF-8";
+/* CSS Document */
+/*------------------------------------*\
+    $TABLE OF CONTENTS
+\*------------------------------------*/
+/**
+ * ELEMENTS---------------------------
+ * .....Timeline
+ * MEDIA------------------------------
+ */
+ 
+/*------------------------------------*\
+    $ELEMENTS
+\*------------------------------------*/
+/*** Timeline ***/
+.timeline {
+	width: 100%;
+	background-color: #F8F8F8;
+	padding: 25px;
+}
+.timeline article {
+	width: 100%;
+	display: table;
+	padding:20px 0px 20px;
+}
+.timeline article header {
+	display: table-row;
+	font-size: 2.5em;
+	line-height: 60px;
+}
+.timeline article p {
+	display: table-cell;
+	vertical-align: top;
+	font-size: 1.5em;
+	padding: 10px;
+	background-color: #EAEAEA;
+}
+.timeline article figure {
+	display: table-cell;
+}
+.titleSection {
+	color: #fa0011;
+	font-weight: normal;
+	font-size: 3em;
+	padding:4px;
+	margin:0px;
+}
+.titleArticle {
+	text-align:center;
+	font-weight: lighter;
+	font-size: 1em;
+	color:#F8F8F8;
+	width:130px;
+	background-color:#A8A8A8;
+}
+h1 {
+	padding:4px;
+	margin:0px;
+	text-align:left;
+}
+h2 {
+	color: #939393;
+	font-weight: normal;
+	font-size: 2.5em;
+	padding:4px;
+	margin:0px;
+}
+h3 {
+	color: #3B3838;
+	font-weight: lighter;
+	font-size: 2em;
+	padding:4px;
+	margin:0px;
+}
+
+/*------------------------------------*\
+    $MEDIA ELEMENTS
+\*------------------------------------*/
+@media screen and (min-width: 320px)  and (max-width: 480px) { 
+/*** Timeline ***/
+.timeline {
+	width: 100%;
+	padding: 5px;
+}
+.timeline article {
+	order: 1;
+	display:inline-block;
+}
+.timeline article header {
+	order:1;
+	display: table-header-group;
+}
+.timeline article p {
+	order:3;
+	display: table-footer-group;
+	font-size: 1.2em;
+}
+.timeline article figure {
+	order:2;
+	display: table-row-group;
+}
+.timeline article figure img {
+	width: 100%;
+	height: auto;
+}
+}
+@media screen and (max-width: 960px) { 
+/*** Timeline ***/
+.timeline article {
+	text-align:center;
+}
+.timeline article header {
+	order:1;
+	display: table-header-group;
+}
+.timeline article figure {
+	order:2;
+	display: table-row-group;
+}
+.timeline article p {
+	order:3;
+	display: table-footer-group;
+	font-size: 1.2em;
+}
+}
+
+@media screen and (min-width:961px) {
+.timeline article {
+	display:table;
+}
+.timeline article header {
+	display:table-row;
+}
+.timeline article p {
+	display: table-cell;
+}
+.timeline article figure {
+	display: table-cell;
+}
+}

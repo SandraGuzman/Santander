@@ -1,0 +1,161 @@
+<!doctype html>
+<html>
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<title>Banco Santander México</title>
+<link rel="stylesheet" href="Styles/main.css">
+<link rel="stylesheet" href="Styles/visionValues.css">
+<link rel="stylesheet" href="Styles/mainResponsiveStandardDevices.css">
+<script src="Scripts/effects.js"></script>
+</head>
+
+<body>
+<header class="header">
+  <div class="header__inner"> <img class="header__logo" src="Images/LogoSantander.png" alt="Santander">
+    <nav id="mainMenu" class="navHor">
+      <ul class="navHor__List">
+        <li class="navHorList__item"><a href="index.html">INICIO</a></li>
+        <li class="navHorList__item">ACCIONISTAS</li>
+        <li class="navHorList__item">CONTACTO</li>
+        <li class="navHorList__item">ENGLISH</li>
+        <li class="navHorList__item">BUSCAR</li>
+      </ul>
+    </nav>
+    <a id="menu" class="header__menu" onClick="showMenu(event);">
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+      <path d="M2 6h20v3H2zm0 5h20v3H2zm0 5h20v3H2z"/>
+    </svg>
+    </a> </div>
+</header>
+<section class="backgroundHeader">
+  <picture>
+    <source
+          media="(max-width: 600px)"
+          sizes="100vw"
+          srcset="Images/History/historiaprincipal610.png 604w"/>
+    <source
+          media="(device-width: 768px)"
+          sizes="100vw"
+          srcset="Images/History/historiaprincipal768.png 768w"/>
+    <source 
+          media="(min-width: 850px)"
+          sizes="100vw , 100vh"
+          srcset="Images/History/historiaprincipal850.png 1352w"/>
+    <img
+          sizes="100vw"
+          src="Images/History/historiaprincipal850.png"
+          alt="Historia"> </picture>
+</section>
+<main onClick="hiddenMenu(event);">
+  <section class="bannerHeader">
+    <figure> <img src="Images/tituloencorchetes.png" alt="Relación con los inversionistas"> </figure>
+  </section>
+  <nav id="subMenu" class="subnavHor">
+    <ul id="subMenuList" class="subnavHor__List">
+      <li class="subnavHorList__item" onMouseOver="showDropDownMenu('IdDropDownList1');" onMouseOut="hideDropDownMenu('IdDropDownList1');">ACERCA DEL GRUPO
+        <ul id="IdDropDownList1" class="dropDownNav">
+          <li class="dropDownNavItem"><a href="historia.html">Historia</a></li>
+          <li class="dropDownNavItem"><a href="visionyvalores.html">Visión y valores</a></li>
+          <li class="dropDownNavItem"><a href="#">Estrategia</a></li>
+          <li class="dropDownNavItem"><a href="#">Estructura Corporativas</a></li>
+          <li class="dropDownNavItem"><a href="#">Premios y Reconocimientos</a></li>
+        </ul>
+      </li>
+      <li class="subnavHorList__item" onMouseOver="showDropDownMenu('IdDropDownList2');" onMouseOut="hideDropDownMenu('IdDropDownList2');">GOBIERNO CORPORATIVO
+        <ul id="IdDropDownList2" class="dropDownNav">
+          <li class="dropDownNavItem"><a href="#">Consejo de Administración</a></li>
+          <li class="dropDownNavItem"><a href="#">Equipo Directivo</a></li>
+          <li class="dropDownNavItem"><a href="#">Estatutos y Políticas</a></li>
+          <li class="dropDownNavItem"><a href="#">Mejores practicas corporativas</a></li>
+          <li class="dropDownNavItem"><a href="#">Estructura Accionaria</a></li>
+          <li class="dropDownNavItem"><a href="#">Diferencias entre NYSE y BMV</a></li>
+        </ul>
+      </li>
+      <li class="subnavHorList__item" onMouseOver="showDropDownMenu('IdDropDownList3');" onMouseOut="hideDropDownMenu('IdDropDownList3');">INFORMACIÓN FINANCIERA
+        <ul id="IdDropDownList3" class="dropDownNav" >
+          <li class="dropDownNavItem"><a href="#">Información Trimestal</a></li>
+          <li class="dropDownNavItem"><a href="#">Información Anual</a></li>
+          <li class="dropDownNavItem"><a href="#">Memoria Anual</a></li>
+          <li class="dropDownNavItem"><a href="#">Capilazación</a></li>
+          <li class="dropDownNavItem"><a href="#">Subsidiarias</a></li>
+          <li class="dropDownNavItem"><a href="#">Dividendos</a></li>
+          <li class="dropDownNavItem"><a href="#">Estados Financieros Dictaminados</a></li>
+          <li class="dropDownNavItem"><a href="#">Series Historicas</a></li>
+          <li class="dropDownNavItem"><a href="#">Presentaciones</a></li>
+        </ul>
+      </li>
+      <li class="subnavHorList__item" onMouseOver="showDropDownMenu('IdDropDownList4');" onMouseOut="hideDropDownMenu('IdDropDownList4');">INFORMACIÓN PARA INVERSIONISTAS
+        <ul id="IdDropDownList4" class="dropDownNav">
+          <li class="dropDownNavItem"><a href="#">Carta a Inversionistas</a></li>
+          <li class="dropDownNavItem"><a href="#">Comunicados de Prensa</a></li>
+          <li class="dropDownNavItem"><a href="#">Eventos Relevantes</a></li>
+          <li class="dropDownNavItem"><a href="#">Analistas</a></li>
+          <li class="dropDownNavItem"><a href="#">Calificaciones</a></li>
+          <li class="dropDownNavItem"><a href="#">Contáctenos</a></li>
+          <li class="dropDownNavItem"><a href="#">Pregutas frecuentes</a></li>
+        </ul>
+      </li>
+    </ul>
+  </nav>
+  <section class="aboutTheGroup">
+    <header>
+      <h1 class="titleSection">ACERCA DEL GRUPO</h1>
+      <h2>Visión y Valores</h2>
+    </header>
+    <!--article class="visionArticle">
+        <p>Grupo Financiero Santander y el conjunto de entidades que lo conforman son parte integrante de Grupo Santander Central Hispano, con el cual comparten su misión y valores, los cuales se describen a continuación:</p>
+        <ul>
+          <li>Honestidad</li>
+          <li>Disposición en el trabajo</li>
+          <li>Integridad personal</li>
+          <li>Actitud proactiva</li>
+          <li>Comunicación eficaz</li>
+          <li>Disciplina</li>
+        </ul>
+    </article-->
+    <article class="subArticles">
+        <figure> <img src="Images/VisionValues/vision_img.png" alt="Valores Éticos"> </figure>
+    	<header>
+          <h2>Valores Éticos</h2>
+        </header>
+        <p>El comportamiento del Grupo responde a altos estándares éticos, en donde se privilegia la integridad y la transparencia en las relaciones con sus empleados, clientes, accionistas y autoridades de los países en que opera. El fin de las entidades del Grupo, debido a su calidad de Intermediarios Financieros, es la realización del negocio financiero; para la consecución de dicho fin, la gestión y actividad del Grupo está orientada por un estricto apego al marco legal, a la ética profesional, a la adopción de medidas y controles para evitar los conflictos de interés, la prevención del mal uso de información sensible y el resguardo de la confidencialidad dentro y fuera del Grupo; todo ello encaminado a la satisfacción de los clientes, los accionistas, de las comunidades o países en los que el Grupo está presente y de las autoridades de éstos, así como a una gestión profesional, recta, transparente, imparcial y honesta por parte de sus directivos y empleados.</p>
+    </article>
+    <article class="subArticles">
+    	<figure> <img src="Images/VisionValues/compromiso_img.png" alt="Compromiso Social"> </figure>
+    	<header>
+          <h2>Compromiso Social</h2>
+        </header>
+        <p>Es el nuevo concepto de empresa que demanda la sociedad, en el cual no sólo se deben preocupar por los resultados y ser rentables, sino también por la forma en que los obtienen y por su perspectiva a largo plazo. El compromiso social crea valor para la empresa y para la sociedad. Es una filosofía de gestión que trata de satisfacer las expectativas que sobre su comportamiento tienen los diferentes grupos de interés: accionistas, empleados, clientes y sociedad.</p>
+    </article>
+    <article class="subArticles">
+    	<figure> <img src="Images/VisionValues/valores_img.png" alt="Relación con los inversionistas"> </figure>
+    	<header>
+          <h2>Visión, misión y valores corporativos</h2>
+        </header>
+        <p>El Grupo tiene como visión ser el líder en el mercado nacional y latinoamericano en rentabilidad, competitividad, innovación, calidad de servicio, confiabilidad y compromiso con la sociedad. El Grupo tiene como misión brindar a nuestros clientes productos y servicios que satisfagan sus necesidades financieras de manera eficiente, segura y oportuna, con un equipo de gente altamente capacitado y orientado a la mejora continua.</p>
+    </article>
+  </section>
+</main>
+<footer class="footer">
+  <div class="footer__inner">
+    <section class="anotherSites">
+      <header>
+        <h1>Otros sitios</h1>
+      </header>
+      <a href="">www.santander.com.mx</a> </section>
+    <section class="legal">
+      <header>
+        <h1>Información Legal</h1>
+      </header>
+      <a href="">Aviso de privacidad</a> <a href="">Grupo financiero Santander</a> </section>
+    <section class="socialMedia">
+      <header>
+        <h1>Redes sociales</h1>
+      </header>
+      <a href="">Facebook</a> <a href="">Twitter</a> </section>
+  </div>
+</footer>
+</body>
+</html>

@@ -1,0 +1,53 @@
+/*** About the Group ***/
+
+.aboutTheGroup {
+	background-color:#F8F8F8;
+	display:inline-block;
+}
+.visionArticle {
+	width:100%;
+	/*display:block;*/
+	display:table;
+}
+.visionArticle p {
+	width:50%;
+	display:table-cell;
+	background-color:#E3D63B;
+}
+.visionArticle ul {
+	width:50%;
+	display:table-cell;
+	background-color:#73CC7E;
+}
+.subArticles {
+	display:table-cell;
+	table-layout: fixed;
+	width:33%;
+}
+/*------------------------------------*\
+    $MEDIA ELEMENTS
+\*------------------------------------*/
+@media screen and (min-width: 320px)  and (max-width: 480px) { 
+.subArticles {
+	width:100%;
+	text-align:center;
+	display:table-row;
+}
+.subArticles figure img{
+	width:100%;
+}
+
+}
+@media screen and (max-width: 960px) { 
+.subArticles {
+	width:100%;
+	text-align:center;
+	display:table-row;
+}
+.subArticles figure img{
+	width:100%;
+}
+}
+
+@media screen and (min-width:961px) {
+}
