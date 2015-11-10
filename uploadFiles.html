@@ -1,57 +1,229 @@
 <!doctype html>
 <html>
+
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1">
-<meta http-equiv="X-UA-Compatible" content="IE=edge">
-<title>Administración</title>
-<link rel="stylesheet" href="Styles/main.css">
-<link rel="stylesheet" href="Styles/uploadFiles.css">
-<link rel="stylesheet" href="Styles/mainResponsiveStandardDevices.css">
-<script src="Scripts/effects.js"></script>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>Administración</title>
+    <link rel="stylesheet" href="Styles/main.css">
+    <link rel="stylesheet" href="Styles/uploadFiles.css">
+    <link rel="stylesheet" href="Styles/mainResponsiveStandardDevices.css">
+    <script src="http://code.jquery.com/jquery-1.9.1.js"></script>
 </head>
+<script type="text/javascript">
+    $("document").ready(function() {
+        refreshFilesTable();
+        $("#form1").submit(function() {
+            var form = new FormData($(this)[0]);
+            $.ajax({
+                type: "POST",
+                url: "PHP/uploadFile.php/uploadFile",
+                data: form,
+                cache: false,
+                contentType: false,
+                processData: false,
+                success: function(data) {
+                    if (data.hasOwnProperty("error")) {
+                        alert('ERROR; ' + data["error"]);
+                    } else {
+                        var trHTML = $('<tr>').append(
+                            $('<td>').text(data.filename),
+                            $('<td>').text(data.fileType),
+                            $('<td>').text(data.publicationDate),
+                            $('<td>').text(data.year),
+                            $('<td>').text(data.quarterly),
+                            $('<td style="display:none;">').text(data.file_id),
+                            $('<td><button class="previewFile">[+]</button><td>').click(function(event) {
+                                var filename = $(this).parent().find('td:first-child').text();
+                                var fileType = $(this).parent().find('td:nth-child(2)').text();
+                                window.open('Uploads/' + filename + '.' + fileType);
+                            }),
+                            $('<td><button class="deleteFile">[x]</button><td>').click(function(event) {
+                                var filename = $(this).parent().find('td:first-child').text();
+                                var fileType = $(this).parent().find('td:nth-child(2)').text();
+                                var id = $(this).parent().find('td:nth-child(6)').text();
+								   var data = {
+												  "file_id":  id,
+												   "filename": filename,
+												   "fileType": fileType
+												};
+									data = $(this).serialize() + "&" + $.param(data);
+                                $.ajax({
+                                    type: "POST",
+                                    url: "PHP/uploadFile.php/deleteFile",
+                                    data: data,
+									   dataType: "json",
+                                    success: function(data) {
+                                        if (data.hasOwnProperty("error")) {
+                                            alert('ERROR; ' + data["error"]);
+                                        } else {
+                                        }
+                                    },
+                                    error: function(error) {
+                                        alert('ERROR; ' + JSON.stringify(error));
+                                    }
+                                });
+                            })
+                        );
+                        $('#files__table').append(trHTML);
+                    }
+                },
+                error: function(error) {
+                    alert('ERROR; ' + JSON.stringify(error));
+                }
+            });
+            return false;
+        });
+
+        function refreshFilesTable() {
+            $.ajax({
+                type: "POST",
+                url: "PHP/uploadFile.php/getFiles",
+                dataType: "json",
+                success: function(data) {
+                    $.each(data, function(i, item) {
+                        var trHTML = $('<tr>').append(
+                            $('<td>').text(item.filename),
+                            $('<td>').text(item.fileType),
+                            $('<td>').text(item.publicationDate),
+                            $('<td>').text(item.year),
+                            $('<td>').text(item.quarterly),
+                            $('<td style="display:none;">').text(item.file_id),
+                            $('<td><button class="previewFile">[+]</button><td>').click(function(event) {
+                                var filename = $(this).parent().find('td:first-child').text();
+                                var fileType = $(this).parent().find('td:nth-child(2)').text();
+                                window.open('Uploads/' + filename + '.' + fileType);
+                            }),
+                            $('<td><button class="deleteFile">[x]</button><td>').click(function(event) {
+							       var filename = $(this).parent().find('td:first-child').text();
+                                var fileType = $(this).parent().find('td:nth-child(2)').text();
+                                var id = $(this).parent().find('td:nth-child(6)').text();
+								   var data = {
+												  "file_id":  id,
+												   "filename": filename,
+												   "fileType": fileType
+												};
+									data = $(this).serialize() + "&" + $.param(data);
+                                $.ajax({
+                                    type: "POST",
+                                    url: "PHP/uploadFile.php/deleteFile",
+                                    data: data,
+									   dataType: "json",
+                                    success: function(data) {
+                                        if (data.hasOwnProperty("error")) {
+                                            alert('ERROR; ' + data["error"]);
+                                        } else {
+                                        }
+                                    },
+                                    error: function(error) {
+											alert('ERROR; ' + JSON.stringify(error));
+                                    }
+                                });
+                            })
+                        );
+                        $('#files__table').append(trHTML);
+                    });
+                },
+                error: function(error) {
+                    alert('ERROR; ' + JSON.stringify(error));
+                }
+            });
+        }
+    });
+</script>
 
 <body>
-<header class="header">
-  <div class="header__inner"> <img class="header__logo" src="Images/LogoSantander.png" alt="Santander"> </div>
-</header>
-<main>
-  <section class="bannerHeader">
-    <figure> <img src="Images/tituloencorchetes.png" alt="Relación con los inversionistas"> </figure>
-  </section>
-  <section class="content">
-    <nav id="closeBackMenu">
-    	<ul id="subCloseBackMenuList">
-    		<li class="navItem"><a href="admin.html">[<] Regresar</a></li>
-    		<li class="navItem"><a href="logout.html">[X] Cerrar sesión</a></li>
-        </ul>
-    </nav>
-	<section class="quarterly">
-		<header>
-          <h1>Sección ></h1>
-		  <h2>Publicar archivos</h2>
-        </header>
-	</section>
-  </section>
-</main>
-<footer class="footer">
-  <div class="footer__inner">
-    <section class="anotherSites">
-      <header>
-        <h1>Otros sitios</h1>
-      </header>
-      <a href="">www.santander.com.mx</a> </section>
-    <section class="legal">
-      <header>
-        <h1>Información Legal</h1>
-      </header>
-      <a href="">Aviso de privacidad</a> <a href="">Grupo financiero Santander</a> </section>
-    <section class="socialMedia">
-      <header>
-        <h1>Redes sociales</h1>
-      </header>
-      <a href="">Facebook</a> <a href="">Twitter</a> </section>
-  </div>
-</footer>
+    <header class="header">
+        <div class="header__inner"> <img class="header__logo" src="Images/LogoSantander.png" alt="Santander"> </div>
+    </header>
+    <main>
+        <section class="bannerHeader">
+            <figure> <img src="Images/tituloencorchetes.png" alt="Relación con los inversionistas"> </figure>
+        </section>
+        <section class="content">
+            <section class="quarterly">
+                <header>
+                    <h1>Sección ></h1>
+                    <h1>Publicar archivos</h1>
+                </header>
+                <form id="form1" action="PHP/uploadFile.php/uploadFile" enctype="multipart/form-data" method="post">
+                    <p>
+                        <input type="file" name="fileField" id="fileField">
+                    </p>
+                    <p>Título:
+                        <br>
+                        <textarea name="titleFile" id="titleFile"></textarea>
+                    </p>
+                    <p>
+                        Año:
+                        <br>
+                        <select name="yearFile" id="yearFile">
+                            <option>Año</option>
+                            <option>2015</option>
+                            <option>2014</option>
+                            <option>2013</option>
+                            <option>2012</option>
+                            <option>2011</option>
+                            <option>2010</option>
+                        </select>
+                    </p>
+                    <p>
+                        Trimestre:
+                        <br>
+                        <select name="quarterFile" id="quarterFile">
+                            <option>Trimestre</option>
+                            <option>Primero</option>
+                            <option>Segundo</option>
+                            <option>Tercero</option>
+                            <option>Cuarto</option>
+                        </select>
+                    </p>
+                    <input type="submit" value="Publicar" name="submit">
+                </form>
+            </section>
+            <section class="files">
+                <h3>DOCUMENTOS PUBLICADOS</h3>
+                <table id="files__table">
+                    <thead>
+                        <tr>
+                            <th>Nombre</th>
+                            <th>Tipo de archivo</th>
+                            <th>Fecha de publicación</th>
+                            <th>Año</th>
+                            <th>Trimestre</th>
+                            <th>Vista previa</th>
+                            <th>Eliminar</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                    </tbody>
+                </table>
+            </section>
+        </section>
+    </main>
+    <footer class="footer">
+        <div class="footer__inner">
+            <section class="anotherSites">
+                <header>
+                    <h1>Otros sitios</h1>
+                </header>
+                <a href="">www.santander.com.mx</a>
+            </section>
+            <section class="legal">
+                <header>
+                    <h1>Información Legal</h1>
+                </header>
+                <a href="">Aviso de privacidad</a> <a href="">Grupo financiero Santander</a>
+            </section>
+            <section class="socialMedia">
+                <header>
+                    <h1>Redes sociales</h1>
+                </header>
+                <a href="">Facebook</a> <a href="">Twitter</a>
+            </section>
+        </div>
+    </footer>
 </body>
+
 </html>

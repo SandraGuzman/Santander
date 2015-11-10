@@ -20,7 +20,6 @@
 	display:table;
 	text-align: center;
 	list-style: none;
-	table-layout: fixed;
 }
 .navItem {
 	display:table-cell;
