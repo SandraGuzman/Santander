@@ -1,24 +1,25 @@
 <!doctype html>
 <html>
+
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1">
-<meta http-equiv="X-UA-Compatible" content="IE=edge">
-<title>Login</title>
-<link rel="stylesheet" href="Styles/main.css">
-<link rel="stylesheet" href="Styles/logout.css">
-<link rel="stylesheet" href="Styles/mainResponsiveStandardDevices.css">
-<script src="http://code.jquery.com/jquery-1.9.1.js"></script>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>Login</title>
+    <link rel="stylesheet" href="Styles/main.css">
+    <link rel="stylesheet" href="Styles/logout.css">
+    <link rel="stylesheet" href="Styles/mainResponsiveStandardDevices.css">
+    <script src="http://code.jquery.com/jquery-1.9.1.js"></script>
 </head>
 <script type="text/javascript">
     $("document").ready(function() {
         validateSession();
+
         function validateSession() {
             $.ajax({
                 type: "POST",
                 url: "PHP/logout.php",
-                success: function(data) {
-                },
+                success: function(data) {},
                 error: function(error) {
                     alert('ERROR; ' + JSON.stringify(error));
                 }
@@ -28,39 +29,40 @@
 </script>
 
 <body>
-<header class="header">
-  <div class="header__inner"> <img class="header__logo" src="Images/LogoSantander.png" alt="Santander"> </div>
-</header>
-<main>
-  <section class="bannerHeader">
-    <figure> <img src="Images/tituloencorchetes.png" alt="Relación con los inversionistas"> </figure>
-  </section>
-  <section class="content">
-    <section class="logout">
-        <h2>Gracias por usar el sistema de administración</h2>
-		<a href="index.html">Ir al sitio relación con inversionistas</a>
-		<a href="login.html">Ingresar al sistema</a>
-    </section>
-  </section>
-</main>
-<footer class="footer">
-  <div class="footer__inner">
-    <section class="anotherSites">
-      <header>
-        <h1>Otros sitios</h1>
-      </header>
-      <a href="">www.santander.com.mx</a> </section>
-    <section class="legal">
-      <header>
-        <h1>Información Legal</h1>
-      </header>
-      <a href="">Aviso de privacidad</a> <a href="">Grupo financiero Santander</a> </section>
-    <section class="socialMedia">
-      <header>
-        <h1>Redes sociales</h1>
-      </header>
-      <a href="">Facebook</a> <a href="">Twitter</a> </section>
-  </div>
-</footer>
+    <header class="header">
+        <div class="header__inner"> <img class="header__logo" src="Images/LogoSantander.png" alt="Santander"> </div>
+    </header>
+    <main>
+        <section class="bannerHeader">
+            <figure> <img src="Images/tituloencorchetes.png" alt="Relación con los inversionistas"> </figure>
+        </section>
+        <section class="content">
+            <section class="logout">
+                <h2>Gracias por usar el sistema de administración</h2>
+                <a href="index.html">Ir al sitio relación con inversionistas</a>
+                <a href="login.html">Ingresar al sistema</a>
+            </section>
+        </section>
+    </main>
+    <footer class="footer">
+        <div class="footer__inner">
+            <section class="anotherSites">
+                <header>
+                    <h1>Otros sitios</h1>
+                </header>
+                <a href="">www.santander.com.mx</a> </section>
+            <section class="legal">
+                <header>
+                    <h1>Información Legal</h1>
+                </header>
+                <a href="">Aviso de privacidad</a> <a href="">Grupo financiero Santander</a> </section>
+            <section class="socialMedia">
+                <header>
+                    <h1>Redes sociales</h1>
+                </header>
+                <a href="">Facebook</a> <a href="">Twitter</a> </section>
+        </div>
+    </footer>
 </body>
+
 </html>

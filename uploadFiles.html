@@ -15,6 +15,7 @@
     $("document").ready(function() {
         refreshFileTable();
         $("#uploadFile-form").submit(function() {
+			 $('#spinner').show();
             var form = new FormData($(this)[0]);
             $.ajax({
                 type: "POST",
@@ -23,13 +24,16 @@
                 cache: false,
                 contentType: false,
                 processData: false,
+                complete: function() {
+					$('#spinner').hide();
+                },
                 success: function(data) {
                     if (data.hasOwnProperty("error")) {
-						  $('#requestStatus-label').text(data["error"]);
+                        $('#requestStatus-label').text(data["error"]);
                     } else {
-					      $('#requestStatus-label').text('El archivo se publico correctamente');
+                        $('#requestStatus-label').text('El archivo se publico correctamente');
                         parseDataResponse(data);
-						  $('#uploadFile-form')[0].reset();
+                        $('#uploadFile-form')[0].reset();
                     }
                 },
                 error: function(error) {
@@ -40,26 +44,24 @@
         });
 
         function refreshFileTable() {
+			 $('#spinner').show();
             $.ajax({
                 type: "POST",
                 url: "PHP/uploadFile.php/getFiles",
                 dataType: "json",
-				  beforeSend: function() {
-                
-                },
                 complete: function() {
-                
-				  },
+					$('#spinner').hide();
+                },
                 success: function(data) {
-				      if (data.hasOwnProperty("session")) {
-						window.open("login.html","_self");
+                    if (data.hasOwnProperty("session")) {
+                        window.open("login.html", "_self");
                     } else if (data.hasOwnProperty("error")) {
-						  $('#requestStatus-label').text(data["error"]);
+                        $('#requestStatus-label').text(data["error"]);
                     } else {
-					     $.each(data, function(i, item) {
-							parseDataResponse(item);
-						  });
-					  }
+                        $.each(data, function(i, item) {
+                            parseDataResponse(item);
+                        });
+                    }
                 },
                 error: function(error) {
                     alert('ERROR; ' + JSON.stringify(error));
@@ -93,14 +95,18 @@
             "fileType": fileType
         };
         data = $(this).serialize() + "&" + $.param(data);
-        $.ajax({
+        $('#spinner').show(); 
+		 $.ajax({
             type: "POST",
             url: "PHP/uploadFile.php/deleteFile",
             data: data,
             dataType: "json",
+			 complete: function() {
+				 $('#spinner').hide();
+			 },
             success: function(data) {
                 if (data.hasOwnProperty("error")) {
-                     $('#requestStatus-label').text(data["error"]);
+                    $('#requestStatus-label').text(data["error"]);
                 } else {
                     parent.remove();
                 }
@@ -128,18 +134,21 @@
             <figure> <img src="Images/tituloencorchetes.png" alt="Relación con los inversionistas"> </figure>
         </section>
         <section class="content">
-			 <section class="navigationMenu">
-				<a href="javascript:history.back()" id="back">[<] Regresar</a>
-				<a href="logout.html" id="closeSession">[x] Cerrar Sesión</a>
-			 </section>
+            <section class="navigationMenu">
+                <a href="javascript:history.back()" id="back">[<] Regresar</a>
+                <a href="logout.html" id="closeSession">[x] Cerrar Sesión</a>
+            </section>
             <section class="quarterly">
-			     <hr>
+                <hr>
+				  <div id="spinner" class="spinner" style="display:none;">
+					  <img id="img-spinner" src="Images/loader.gif" alt="Loading"/>
+				  </div>
                 <form id="uploadFile-form" action="PHP/uploadFile.php/uploadFile" enctype="multipart/form-data" method="post">
-					  <header>
-						  <h1 id="title-form">Sección ></h1>
-						  <h2>Publicar archivos</h2>
-					  </header>
-					  <p>
+                    <header>
+                        <h1 id="title-form">Sección > Información Trimestral</h1>
+                        <h2>Publicar archivos</h2>
+                    </header>
+                    <p>
                         <input type="file" name="fileField" id="fileField">
                     </p>
                     <p>Título:
@@ -172,10 +181,10 @@
                     </p>
                     <input type="submit" value="Publicar" name="submit">
                 </form>
-				  <label id="requestStatus-label"></label>
+                <label id="requestStatus-label"></label>
             </section>
             <section class="publishedDocuments">
-				 <h2>Documentos publicados</h2>
+                <h2>Documentos publicados</h2>
                 <table id="file-table">
                     <thead>
                         <tr>

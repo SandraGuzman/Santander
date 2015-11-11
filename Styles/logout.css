@@ -1,46 +1,43 @@
 @charset "UTF-8";
 /* CSS Document */
- 
 /*------------------------------------*\
     $ELEMENTS
 \*------------------------------------*/
-.bannerHeader {
-	background-color: #F8F8F8;
-}
 
+.bannerHeader {
+    background-color: #F8F8F8;
+}
 h1 {
-   font-weight:bold;
-   font-size: large;
+    font-weight: bold;
+    font-size: large;
 }
 h2 {
-   font-weight:normal;
-   font-size: medium;
+    font-weight: normal;
+    font-size: medium;
 }
 h3 {
-   font-weight:lighter;
-   font-size: small;
+    font-weight: lighter;
+    font-size: small;
 }
 /*** Logout ***/
+
 .logout {
     display: block;
     text-align: center;
-	width: 100%;
-	background-color: #F8F8F8;
-	padding: 0px 0px 20px;
+    width: 100%;
+    background-color: #F8F8F8;
+    padding: 0px 0px 20px;
 }
 .logout a {
     display: block;
-	color:#fa0011;
-	font-size: medium;
+    color: #fa0011;
+    font-size: medium;
+    padding: 20px;
 }
 /*------------------------------------*\
     $MEDIA ELEMENTS
 \*------------------------------------*/
-@media screen and (min-width: 320px)  and (max-width: 480px) { 
-}
-@media screen and (max-width: 960px) {
 
-}
-@media screen and (min-width:961px) {
-
-}
+@media screen and (min-width: 320px) and (max-width: 480px) {} 
+@media screen and (max-width: 960px) {}
+@media screen and (min-width: 961px) {}

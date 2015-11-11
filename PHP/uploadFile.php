@@ -1,8 +1,8 @@
 <?php
 require_once("Connection.php");
+session_start();
 
-if (isset($_SESSION) || isset($_SESSION['user'])) {
-    session_start();
+if (isset($_SESSION['user'])) {
     $uri      = explode("/", $_SERVER["REQUEST_URI"]);
     $resource = end($uri);
     
@@ -129,11 +129,11 @@ if (isset($_SESSION) || isset($_SESSION['user'])) {
     }
     
 } else {
-	$json = array(
-                "session" => "Sesión no iniciada"
-            );
-	header('Content-Type: application/json');
-        echo json_encode($json);
+    $json = array(
+        "session" => "Sesión no iniciada"
+    );
+    header('Content-Type: application/json');
+    echo json_encode($json);
 }
 
 ?>

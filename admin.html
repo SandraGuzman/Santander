@@ -1,29 +1,31 @@
 <!doctype html>
 <html>
+
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1">
-<meta http-equiv="X-UA-Compatible" content="IE=edge">
-<title>Administración</title>
-<link rel="stylesheet" href="Styles/main.css">
-<link rel="stylesheet" href="Styles/admin.css">
-<link rel="stylesheet" href="Styles/mainResponsiveStandardDevices.css">
-<script src="http://code.jquery.com/jquery-1.9.1.js"></script>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>Administración</title>
+    <link rel="stylesheet" href="Styles/main.css">
+    <link rel="stylesheet" href="Styles/admin.css">
+    <link rel="stylesheet" href="Styles/mainResponsiveStandardDevices.css">
+    <script src="http://code.jquery.com/jquery-1.9.1.js"></script>
 </head>
 <script type="text/javascript">
     $("document").ready(function() {
         validateSession();
+
         function validateSession() {
             $.ajax({
                 type: "POST",
                 url: "PHP/admin.php",
                 dataType: "json",
                 success: function(data) {
-				      if (data.hasOwnProperty("session")) {
-							window.open("login.html","_self");
+                    if (data.hasOwnProperty("session")) {
+                        window.open("login.html", "_self");
                     } else {
-							$('#welcomeuser').text("Bienvenido "+data['user']);
-					  }
+                        $('#welcomeuser').text("Bienvenido " + data['user']);
+                    }
                 },
                 error: function(error) {
                     alert('ERROR; ' + JSON.stringify(error));
@@ -32,52 +34,53 @@
         }
     });
 </script>
+
 <body>
-<header class="header">
-  <div class="header__inner"> <img class="header__logo" src="Images/LogoSantander.png" alt="Santander"> </div>
-</header>
-<main>
-  <section class="bannerHeader">
-    <figure> <img src="Images/tituloencorchetes.png" alt="Relación con los inversionistas"> </figure>
-  </section>
-  <section class="content">
-      <section class="navigationMenu">
-				<a href="logout.html" id="closeSession">[x] Cerrar Sesión</a>
-	   </section>
-      <section class="admin">
-      <header>
-        <h1 id="welcomeuser"></h1>
-      </header>
-      <label>Publicar archivos</label><br>
-      <select onchange="location = this.options[this.selectedIndex].value;">
-        <option value="uploadFiles.html">Elija una sección</option>
-        <option value="uploadFiles.html">Información Trimestral</option>
-        <option value="uploadFiles.html">Información Anual</option>
-        <option value="uploadFiles.html">Memoria Anual</option>
-        <option value="uploadFiles.html">subsidiarias</option>
-        <option value="uploadFiles.html">Estados financieros dictaminados</option>
-      </select>
-    </section>
-  </section>
-</main>
-<footer class="footer">
-  <div class="footer__inner">
-    <section class="anotherSites">
-      <header>
-        <h1>Otros sitios</h1>
-      </header>
-      <a href="">www.santander.com.mx</a> </section>
-    <section class="legal">
-      <header>
-        <h1>Información Legal</h1>
-      </header>
-      <a href="">Aviso de privacidad</a> <a href="">Grupo financiero Santander</a> </section>
-    <section class="socialMedia">
-      <header>
-        <h1>Redes sociales</h1>
-      </header>
-      <a href="">Facebook</a> <a href="">Twitter</a> </section>
-  </div>
-</footer>
+    <header class="header">
+        <div class="header__inner"> <img class="header__logo" src="Images/LogoSantander.png" alt="Santander"> </div>
+    </header>
+    <main>
+        <section class="bannerHeader">
+            <figure> <img src="Images/tituloencorchetes.png" alt="Relación con los inversionistas"> </figure>
+        </section>
+        <section class="content">
+            <section class="navigationMenu">
+                <a href="logout.html" id="closeSession">[x] Cerrar Sesión</a>
+            </section>
+            <section class="admin">
+                <h1 id="welcomeuser"></h1>
+                <label>Publicar archivos</label>
+                <br>
+                <select onchange="location = this.options[this.selectedIndex].value;">
+                    <option value="uploadFiles.html">Elija una sección</option>
+                    <option value="uploadFiles.html">Información Trimestral</option>
+                    <option value="uploadFiles.html">Información Anual</option>
+                    <option value="uploadFiles.html">Memoria Anual</option>
+                    <option value="uploadFiles.html">subsidiarias</option>
+                    <option value="uploadFiles.html">Estados financieros dictaminados</option>
+                </select>
+            </section>
+        </section>
+    </main>
+    <footer class="footer">
+        <div class="footer__inner">
+            <section class="anotherSites">
+                <header>
+                    <h1>Otros sitios</h1>
+                </header>
+                <a href="">www.santander.com.mx</a> </section>
+            <section class="legal">
+                <header>
+                    <h1>Información Legal</h1>
+                </header>
+                <a href="">Aviso de privacidad</a> <a href="">Grupo financiero Santander</a> </section>
+            <section class="socialMedia">
+                <header>
+                    <h1>Redes sociales</h1>
+                </header>
+                <a href="">Facebook</a> <a href="">Twitter</a> </section>
+        </div>
+    </footer>
 </body>
+
 </html>

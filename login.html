@@ -1,86 +1,90 @@
 <!doctype html>
 <html>
+
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1">
-<meta http-equiv="X-UA-Compatible" content="IE=edge">
-<title>Login</title>
-<link rel="stylesheet" href="Styles/main.css">
-<link rel="stylesheet" href="Styles/login.css">
-<link rel="stylesheet" href="Styles/mainResponsiveStandardDevices.css">
-<script src="http://code.jquery.com/jquery-1.9.1.js"></script>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>Login</title>
+    <link rel="stylesheet" href="Styles/main.css">
+    <link rel="stylesheet" href="Styles/login.css">
+    <link rel="stylesheet" href="Styles/mainResponsiveStandardDevices.css">
+    <script src="http://code.jquery.com/jquery-1.9.1.js"></script>
 </head>
 
 <script type="text/javascript">
-$("document").ready(function(){
-  $(".js-ajax-php-json").submit(function(){
-	var data = {
-      "username":  $("#username").val(),
-	   "psw":  $("#psw").val()
-    };
-    data = $(this).serialize() + "&" + $.param(data);
-    $.ajax({
-      type: "POST",
-      dataType: "json",
-      url: "PHP/login.php",
-      data: data,
-      success: function(data) {
-	    if (data.hasOwnProperty("error")) {
-			alert('ERROR; ' + data["error"]);
-		} else {
-			window.open("admin.html","_self");
-		}
-      },
-	  error: function (error) {
-         alert('ERROR; ' + JSON.stringify(error));
-      }
+    $("document").ready(function() {
+        $(".js-ajax-php-json").submit(function() {
+            var data = {
+                "username": $("#username").val(),
+                "psw": $("#psw").val()
+            };
+            data = $(this).serialize() + "&" + $.param(data);
+            $.ajax({
+                type: "POST",
+                dataType: "json",
+                url: "PHP/login.php",
+                data: data,
+                success: function(data) {
+                    if (data.hasOwnProperty("error")) {
+                        alert('ERROR; ' + data["error"]);
+                    } else {
+                        window.open("admin.html", "_self");
+                    }
+                },
+                error: function(error) {
+                    alert('ERROR; ' + JSON.stringify(error));
+                }
+            });
+            return false;
+        });
     });
-    return false;
-  });
-});
 </script>
 
 <body>
-<header class="header">
-  <div class="header__inner"> <img class="header__logo" src="Images/LogoSantander.png" alt="Santander"> </div>
-</header>
-<main>
-  <section class="bannerHeader">
-    <figure> <img src="Images/tituloencorchetes.png" alt="Relación con los inversionistas"> </figure>
-  </section>
-  <section class="content">
-    <section class="login">
-      <header>
-        <h1>Bienvenido al sistema de administración</h1>
-      </header>
-      <form action="PHP/login.php" class="js-ajax-php-json" method="post" accept-charset="application/json">
-        <label >Usuario:</label>
-        <input type="text" name="username" id="username"><br>
-        <label>Contraseña:</label>
-        <input type="password" name="psw" id="psw"><br>
-        <input type="submit">
-      </form>
-    </section>
-  </section>
-</main>
-<footer class="footer">
-  <div class="footer__inner">
-    <section class="anotherSites">
-      <header>
-        <h1>Otros sitios</h1>
-      </header>
-      <a href="">www.santander.com.mx</a> </section>
-    <section class="legal">
-      <header>
-        <h1>Información Legal</h1>
-      </header>
-      <a href="">Aviso de privacidad</a> <a href="">Grupo financiero Santander</a> </section>
-    <section class="socialMedia">
-      <header>
-        <h1>Redes sociales</h1>
-      </header>
-      <a href="">Facebook</a> <a href="">Twitter</a> </section>
-  </div>
-</footer>
+    <header class="header">
+        <div class="header__inner"> <img class="header__logo" src="Images/LogoSantander.png" alt="Santander"> </div>
+    </header>
+    <main>
+        <section class="bannerHeader">
+            <figure> <img src="Images/tituloencorchetes.png" alt="Relación con los inversionistas"> </figure>
+        </section>
+        <section class="content">
+            <section class="login">
+                <header>
+                    <h1>Bienvenido al sistema de administración</h1>
+                </header>
+                <form action="PHP/login.php" class="js-ajax-php-json" method="post" accept-charset="application/json" autocomplete="off">
+                    <label>Usuario:</label>
+                    <input type="text" name="username" id="username" value="">
+                    <br>
+                    <label>Contraseña:</label>
+                    <input type="password" name="psw" id="psw">
+                    <br>
+                    <input type="submit" value="Ingresar">
+                </form>
+            </section>
+        </section>
+    </main>
+    <footer class="footer">
+        <div class="footer__inner">
+            <section class="anotherSites">
+                <header>
+                    <h1>Otros sitios</h1>
+                </header>
+                <a href="">www.santander.com.mx</a> </section>
+            <section class="legal">
+                <header>
+                    <h1>Información Legal</h1>
+                </header>
+                <a href="">Aviso de privacidad</a> <a href="">Grupo financiero Santander</a> </section>
+            <section class="socialMedia">
+                <header>
+                    <h1>Redes sociales</h1>
+                </header>
+                <a href="">Facebook</a> <a href="">Twitter</a> </section>
+        </div>
+    </footer>
 </body>
+
 </html>
