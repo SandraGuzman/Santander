@@ -6,6 +6,25 @@
 .bannerHeader {
 	background-color: #F8F8F8;
 }
+.content {
+	background-color: #F8F8F8;
+}
+/***navigationMenu***/
+.navigationMenu {
+   display: table;
+	width: 100%;
+	padding: 0px 50px 0px;
+}
+.navigationMenu a {
+    display: table-cell;
+	font-size: medium;
+    color:#FF0000;
+	text-decoration: none;
+}
+#closeSession {
+    text-align: right;
+    float: right;
+}
 /*** Admin ***/
 .admin {
 	width: 100%;

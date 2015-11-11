@@ -16,13 +16,16 @@ if ($_SERVER['REQUEST_METHOD'] == "POST")
 			$json = array("error" => "MySQL Query Error");
 		} else {
 			if (mysql_num_rows($result) == 0) {
-				$json = array("error" => "Not foud user");
+				$json = array("error" => "Usuario no encontrado");
 			} else {
 			    $row = mysql_fetch_array($result);
 				$user_id = $row["user_id"];
 			    $username = $row["username"];
 			    $password = $row["password"];
-
+				
+               session_start();
+				$_SESSION['user'] = $username;
+				
 				$json = array( "id" => $user_id, "username" => $username, "password" => $password);
 			}
 		}

@@ -6,9 +6,26 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <title>Login</title>
 <link rel="stylesheet" href="Styles/main.css">
-<link rel="stylesheet" href="Styles/login.css">
+<link rel="stylesheet" href="Styles/logout.css">
 <link rel="stylesheet" href="Styles/mainResponsiveStandardDevices.css">
+<script src="http://code.jquery.com/jquery-1.9.1.js"></script>
 </head>
+<script type="text/javascript">
+    $("document").ready(function() {
+        validateSession();
+        function validateSession() {
+            $.ajax({
+                type: "POST",
+                url: "PHP/logout.php",
+                success: function(data) {
+                },
+                error: function(error) {
+                    alert('ERROR; ' + JSON.stringify(error));
+                }
+            });
+        }
+    });
+</script>
 
 <body>
 <header class="header">
@@ -20,9 +37,9 @@
   </section>
   <section class="content">
     <section class="logout">
-      <header>
-        <h1>Gracias por usar el sistema de administración</h1>
-      </header>
+        <h2>Gracias por usar el sistema de administración</h2>
+		<a href="index.html">Ir al sitio relación con inversionistas</a>
+		<a href="login.html">Ingresar al sistema</a>
     </section>
   </section>
 </main>

@@ -13,8 +13,8 @@
 </head>
 <script type="text/javascript">
     $("document").ready(function() {
-        refreshFilesTable();
-        $("#form1").submit(function() {
+        refreshFileTable();
+        $("#uploadFile-form").submit(function() {
             var form = new FormData($(this)[0]);
             $.ajax({
                 type: "POST",
@@ -25,48 +25,11 @@
                 processData: false,
                 success: function(data) {
                     if (data.hasOwnProperty("error")) {
-                        alert('ERROR; ' + data["error"]);
+						  $('#requestStatus-label').text(data["error"]);
                     } else {
-                        var trHTML = $('<tr>').append(
-                            $('<td>').text(data.filename),
-                            $('<td>').text(data.fileType),
-                            $('<td>').text(data.publicationDate),
-                            $('<td>').text(data.year),
-                            $('<td>').text(data.quarterly),
-                            $('<td style="display:none;">').text(data.file_id),
-                            $('<td><button class="previewFile">[+]</button><td>').click(function(event) {
-                                var filename = $(this).parent().find('td:first-child').text();
-                                var fileType = $(this).parent().find('td:nth-child(2)').text();
-                                window.open('Uploads/' + filename + '.' + fileType);
-                            }),
-                            $('<td><button class="deleteFile">[x]</button><td>').click(function(event) {
-                                var filename = $(this).parent().find('td:first-child').text();
-                                var fileType = $(this).parent().find('td:nth-child(2)').text();
-                                var id = $(this).parent().find('td:nth-child(6)').text();
-								   var data = {
-												  "file_id":  id,
-												   "filename": filename,
-												   "fileType": fileType
-												};
-									data = $(this).serialize() + "&" + $.param(data);
-                                $.ajax({
-                                    type: "POST",
-                                    url: "PHP/uploadFile.php/deleteFile",
-                                    data: data,
-									   dataType: "json",
-                                    success: function(data) {
-                                        if (data.hasOwnProperty("error")) {
-                                            alert('ERROR; ' + data["error"]);
-                                        } else {
-                                        }
-                                    },
-                                    error: function(error) {
-                                        alert('ERROR; ' + JSON.stringify(error));
-                                    }
-                                });
-                            })
-                        );
-                        $('#files__table').append(trHTML);
+					      $('#requestStatus-label').text('El archivo se publico correctamente');
+                        parseDataResponse(data);
+						  $('#uploadFile-form')[0].reset();
                     }
                 },
                 error: function(error) {
@@ -76,60 +39,83 @@
             return false;
         });
 
-        function refreshFilesTable() {
+        function refreshFileTable() {
             $.ajax({
                 type: "POST",
                 url: "PHP/uploadFile.php/getFiles",
                 dataType: "json",
+				  beforeSend: function() {
+                
+                },
+                complete: function() {
+                
+				  },
                 success: function(data) {
-                    $.each(data, function(i, item) {
-                        var trHTML = $('<tr>').append(
-                            $('<td>').text(item.filename),
-                            $('<td>').text(item.fileType),
-                            $('<td>').text(item.publicationDate),
-                            $('<td>').text(item.year),
-                            $('<td>').text(item.quarterly),
-                            $('<td style="display:none;">').text(item.file_id),
-                            $('<td><button class="previewFile">[+]</button><td>').click(function(event) {
-                                var filename = $(this).parent().find('td:first-child').text();
-                                var fileType = $(this).parent().find('td:nth-child(2)').text();
-                                window.open('Uploads/' + filename + '.' + fileType);
-                            }),
-                            $('<td><button class="deleteFile">[x]</button><td>').click(function(event) {
-							       var filename = $(this).parent().find('td:first-child').text();
-                                var fileType = $(this).parent().find('td:nth-child(2)').text();
-                                var id = $(this).parent().find('td:nth-child(6)').text();
-								   var data = {
-												  "file_id":  id,
-												   "filename": filename,
-												   "fileType": fileType
-												};
-									data = $(this).serialize() + "&" + $.param(data);
-                                $.ajax({
-                                    type: "POST",
-                                    url: "PHP/uploadFile.php/deleteFile",
-                                    data: data,
-									   dataType: "json",
-                                    success: function(data) {
-                                        if (data.hasOwnProperty("error")) {
-                                            alert('ERROR; ' + data["error"]);
-                                        } else {
-                                        }
-                                    },
-                                    error: function(error) {
-											alert('ERROR; ' + JSON.stringify(error));
-                                    }
-                                });
-                            })
-                        );
-                        $('#files__table').append(trHTML);
-                    });
+				      if (data.hasOwnProperty("session")) {
+						window.open("login.html","_self");
+                    } else if (data.hasOwnProperty("error")) {
+						  $('#requestStatus-label').text(data["error"]);
+                    } else {
+					     $.each(data, function(i, item) {
+							parseDataResponse(item);
+						  });
+					  }
                 },
                 error: function(error) {
                     alert('ERROR; ' + JSON.stringify(error));
                 }
             });
         }
+
+        function parseDataResponse(item) {
+            var trHTML = $('<tr>').append(
+                $('<td>').text(item.filename),
+                $('<td>').text(item.fileType),
+                $('<td>').text(item.publicationDate),
+                $('<td>').text(item.year),
+                $('<td>').text(item.quarterly),
+                $('<td><button class="previewFile">[+]</button></td>'),
+                $('<td><button class="deleteFile">[x]</button></td>'),
+                $('<td style="display:none;">').text(item.file_id)
+            );
+            $('#file-table').append(trHTML);
+        }
+    });
+
+    $(document).on('click', "button.deleteFile", function() {
+        var parent = $(this).closest('tr');
+        var filename = parent.find('td:first-child').text();
+        var fileType = parent.find('td:nth-child(2)').text();
+        var id = parent.find('td:nth-child(8)').text();
+        var data = {
+            "file_id": id,
+            "filename": filename,
+            "fileType": fileType
+        };
+        data = $(this).serialize() + "&" + $.param(data);
+        $.ajax({
+            type: "POST",
+            url: "PHP/uploadFile.php/deleteFile",
+            data: data,
+            dataType: "json",
+            success: function(data) {
+                if (data.hasOwnProperty("error")) {
+                     $('#requestStatus-label').text(data["error"]);
+                } else {
+                    parent.remove();
+                }
+            },
+            error: function(error) {
+                alert('ERROR; ' + JSON.stringify(error));
+            }
+        });
+    });
+
+    $(document).on('click', "button.previewFile", function() {
+        var parent = $(this).closest('tr');
+        var filename = parent.find('td:first-child').text();
+        var fileType = parent.find('td:nth-child(2)').text();
+        window.open('Uploads/' + filename + '.' + fileType);
     });
 </script>
 
@@ -142,13 +128,18 @@
             <figure> <img src="Images/tituloencorchetes.png" alt="Relación con los inversionistas"> </figure>
         </section>
         <section class="content">
+			 <section class="navigationMenu">
+				<a href="javascript:history.back()" id="back">[<] Regresar</a>
+				<a href="logout.html" id="closeSession">[x] Cerrar Sesión</a>
+			 </section>
             <section class="quarterly">
-                <header>
-                    <h1>Sección ></h1>
-                    <h1>Publicar archivos</h1>
-                </header>
-                <form id="form1" action="PHP/uploadFile.php/uploadFile" enctype="multipart/form-data" method="post">
-                    <p>
+			     <hr>
+                <form id="uploadFile-form" action="PHP/uploadFile.php/uploadFile" enctype="multipart/form-data" method="post">
+					  <header>
+						  <h1 id="title-form">Sección ></h1>
+						  <h2>Publicar archivos</h2>
+					  </header>
+					  <p>
                         <input type="file" name="fileField" id="fileField">
                     </p>
                     <p>Título:
@@ -181,10 +172,11 @@
                     </p>
                     <input type="submit" value="Publicar" name="submit">
                 </form>
+				  <label id="requestStatus-label"></label>
             </section>
-            <section class="files">
-                <h3>DOCUMENTOS PUBLICADOS</h3>
-                <table id="files__table">
+            <section class="publishedDocuments">
+				 <h2>Documentos publicados</h2>
+                <table id="file-table">
                     <thead>
                         <tr>
                             <th>Nombre</th>

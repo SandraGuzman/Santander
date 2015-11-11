@@ -6,6 +6,18 @@
 .bannerHeader {
 	background-color: #F8F8F8;
 }
+h1 {
+   font-weight:bold;
+   font-size: large;
+}
+h2 {
+   font-weight:normal;
+   font-size: medium;
+}
+h3 {
+   font-weight:lighter;
+   font-size: small;
+}
 /*** content ***/
 .content {
 	background-color: #F8F8F8;
@@ -32,10 +44,119 @@
 	color:#fa0011;
 	text-decoration: none;
 }
+/***navigationMenu***/
+.navigationMenu {
+   display: table;
+	width: 100%;
+	padding: 0px 50px 0px;
+}
+.navigationMenu a {
+    display: table-cell;
+	font-size: medium;
+    color:#FF0000;
+	text-decoration: none;
+}
+#back {
+	text-align: left;
+}
+#closeSession {
+    text-align: right;
+    float: right;
+}
+/***quarterly***/
+.quarterly {
+	width: 100%;
+	padding: 0px 50px 0px;
+}
+#title-form {
+	color:#FF0000;
+}
+#requestStatus-label {
+    color: #FFFFFF;
+	font-weight: bold; 
+	font-size: medium;
+	background-color: #00C617;
+	line-height: 60px;
+}
+/***files***/
+.publishedDocuments {
+	width: 100%;
+	padding: 0px 50px 50px;
+    text-decoration: none;
+}
+#file-table {
+	border: 0;
+	width: 100%;
+	text-align: center;
+}
+#file-table th {
+   font-weight: bold; 
+	font-size: medium;
+	background-color: #A6A6A6;
+	color: #F3F3F3;
+}
+#file-table td {
+   font-weight: normal;
+   font-size: small;
+	color: #000000;
+}
+#file-table tr:nth-child(odd) { background-color:#F3F3F3; }
+#file-table tr:nth-child(even){ background-color:#CCCCCC; }
+
 /*------------------------------------*\
     $MEDIA ELEMENTS
 \*------------------------------------*/
 @media screen and (min-width: 320px)  and (max-width: 480px) { 
+.navigationMenu, .publishedDocuments, .quarterly {
+	padding: 0px;
+}
+#file-table thead, tbody, th, td, tr {
+   text-align: left;
+	display: block;
+}
+#file-table thead tr {
+	position: absolute;
+	top: -9999px;
+	left: -9999px;
+}
+#file-table tr {
+	border: 1px solid #ccc;
+}
+#file-table td {
+	border: none;
+	border-bottom: 1px solid #eee;
+	position: relative;
+	padding-left: 50%;
+}
+#file-table td:before {
+	position: absolute;
+	top: 6px;
+	left: 6px;
+	width: 45%;
+	padding-right: 10px;
+	white-space: nowrap;
+}
+td:nth-of-type(1):before {
+	content: "Nombre";
+}
+td:nth-of-type(2):before {
+	content: "Tipo de archivo";
+}
+td:nth-of-type(3):before {
+	content: "Fecha de publicación";
+}
+td:nth-of-type(4):before {
+	content: "Año";
+}
+td:nth-of-type(5):before {
+	content: "Trimestre";
+}
+td:nth-of-type(6):before {
+	content: "Vista previa";
+}
+td:nth-of-type(7):before {
+	content: "Eliminar";
+}
 }
 @media screen and (max-width: 960px) {
 

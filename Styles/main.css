@@ -16,6 +16,7 @@ header, nav, footer, section, article, div {
 * {
 	box-sizing: border-box;
 }
+
 /*** Header ***/
 .header {
 	min-height: 47px;
