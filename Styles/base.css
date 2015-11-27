@@ -1,0 +1,147 @@
+/********************* Colour reference chart****************
+*************************** comment ********* colour ******** 
+
+top bar language            tbl               #c91100
+
+*/
+header, nav, footer, section, article, div {
+	box-sizing: border-box;
+}
+/*------------------------------------*\
+    $A HREF
+\*------------------------------------*/
+a {
+	display: block;
+	text-decoration: none;
+	width:100%;
+	height:100%;
+}
+/*------------------------------------*\
+    $BODY
+\*------------------------------------*/
+body, html {
+	margin: 0;
+	padding: 0;
+	width: 100%;
+	height: 100%;
+}
+body {
+	font-family: Gotham, "Helvetica Neue", Helvetica, Arial, sans-serif;
+	font-size: 12px;
+	background-color: white;
+}
+/*------------------------------------*\
+    $CONTENT
+\*------------------------------------*/
+.content {
+	margin-left: auto;
+	margin-right: auto;
+	display: flex;
+	flex-wrap: wrap;
+}
+/*------------------------------------*\
+    $DROP DOWN VERTICAL 
+\*------------------------------------*/
+.dropdown-vertical {
+	display: none;
+	position: absolute;
+	overflow: hidden;
+	width: 100%;
+	list-style: none;
+	margin: 0;
+	padding: 0;
+}
+.dropdown-vertical li {
+	max-width: 100%;
+	max-height: 100%;
+	display: list-item;
+	text-align: center;
+	padding: 10px;
+	text-decoration: none;
+	font-size: medium;
+}
+/*------------------------------------*\
+    $HEADER
+\*------------------------------------*/
+.header {
+	display:flex;
+}
+.header-logo {
+	display: block;
+	vertical-align: middle;
+}
+/*------------------------------------*\
+    $H1
+\*------------------------------------*/
+h1 {
+    font-weight: bold;
+    font-size: 2em;
+}
+h2 {
+    font-weight: normal;
+    font-size: large;
+}
+h3 {
+    font-weight: lighter;
+    font-size: small;
+}
+/*------------------------------------*\
+    $MAIN
+\*------------------------------------*/
+main {
+	margin-left: auto;
+	margin-right: auto;
+}
+/*------------------------------------*\
+    $MENU-HORIZONTAL
+\*------------------------------------*/
+.menu-horizontal {
+	width: 100%;
+	margin-left: auto;
+	margin-right: auto;
+	height: 40px;
+}
+.list-menuhorizontal {
+	width: 100%;
+	height: 100%;
+	padding: 0;
+	margin: 0;
+	display: table;
+	text-align: center;
+	list-style: none;
+	table-layout: fixed;
+}
+.item-listmenuhorizontal {
+	vertical-align: middle;
+	display: table-cell;
+	text-align: center;
+	text-decoration: none;
+	position: relative;
+	font-size: small;
+}
+.item-listmenuhorizontal:last-child {
+	border-right: none;
+}
+/*------------------------------------*\
+    $MENU-SCROLL-VERTICAL
+\*------------------------------------*/
+.scrollVertical {
+	overflow-x: scroll;
+}
+.menu-scrollVertical {
+	margin-left: auto;
+	margin-right: auto;
+	height: 40px;
+}
+.menu-scrollVertical ul {
+	height: 100%;
+	padding: 0;
+	margin: 0;
+	display: table;
+	text-align: center;
+	list-style: none;
+}
+.menu-scrollVertical ul li {
+	display: inline;
+	text-align: center;
+	text-decoration: none;

@@ -1,0 +1,260 @@
+/********************* Colour reference chart****************
+*************************** comment ********* colour ******** 
+
+menu investor relations      mir               #d4d4d4
+text menu investorRelations  tmi               #737373
+hover submenu investor       hsi               #292929
+hover menu year              hmy               #fc0000
+alternating rows cell 1      arc1              #cccccc
+alternating rows cell 2      arc2              #e6e6e6
+right content background     rcb               #4a4a4a
+top bar language             tbl               #a60e00
+background drop down         bdd               #ededed
+*/
+/*------------------------------------*\
+    $HEADER
+\*------------------------------------*/
+.header-inner {
+	width: 1000px;
+	margin-left: auto;
+	margin-right: auto;
+	display: flex;
+	background: /*hmy*/#fc0000;
+}
+.topbar-languaje {
+	width: 100%;
+	display:inline-table;
+	color: white;
+	text-align: center;
+	font-size: small;
+	height: 35px;
+	background: linear-gradient(/*hmy*/#fc0000, /*tbl*/#a60e00);
+}
+.topbar-languaje p {
+	padding-top: 10px;
+	display:table-cell;
+	border-right: 1px solid gray;
+}
+.topbar-languaje p:last-child {
+	border-right: none;
+}
+/*------------------------------------*\
+    $CONTENT
+\*------------------------------------*/
+main {
+	width: 1000px;
+	background-color:/*arc1*/#cccccc;
+}
+.content {
+	width: 900px;
+	box-shadow: -10px 5px 80px rgba(0, 0, 0, 0.6);
+}
+.left-content {
+	width: 25%;
+	height: auto;
+	background-color:white;
+}
+.middle-content {
+	width: 50%;
+	height: auto;
+	padding: 20px;
+	background-color:white;
+}
+.right-content {
+	width: 25%;
+	height: auto;
+	background-color:/*rcb*/#4a4a4a;
+}
+footer {
+	width: 100%;
+	height: 40px;
+	background-color:/*tmi*/#737373;
+	text-align: center;
+	color: white;
+	font-size: small;
+}
+/*------------------------------------*\
+    $MENU INVESTOR RELATIONS
+\*------------------------------------*/
+#item-investorRelations {
+    background:linear-gradient(/*mir*/#d4d4d4, white);
+	border:1px solid /*arc1*/#cccccc;
+	font-size: small;
+	color: ; /*tmi*/#737373;
+}
+#item-investorRelations:hover {
+	background:linear-gradient(white,/*mir*/#d4d4d4);
+}
+/*------------------------------------*\
+    $MENU FINANCIAL INFORMATION
+\*------------------------------------*/
+.list-financialInformation {
+	display:none;
+	position: absolute;
+	overflow: hidden;
+	width: 100%;
+	/*list-style: none;*/
+	margin: 0;
+	background:/*bdd*/#ededed;
+	text-align: left;
+	list-style-image: url('../../Images/arrow-right-32.png');
+}
+.item-financialInformation {
+	padding-bottom: 10px;
+	display: list-item;
+	font-size: small;
+	line-height: 30px;
+	padding: 0px 4px 0px;
+	color: /*mir*/#d4d4d4;
+	background:/*bdd*/#ededed;
+	
+	color: #3B3838;
+	width:100%;
+	height:100%;
+}
+.item-financialInformation:hover  {
+	background-color: /*hsi*/#292929;
+	color: white;
+}
+/*------------------------------------*\
+    $SECTION UPLOAD FILES
+\*------------------------------------*/
+.uploadFiles {
+	width: 100%;
+	height: auto;
+}
+/*-----------$MENU YEAR-----------*/
+.list-MenuYear {
+	background-color: white;
+}
+.item-MenuYear {
+    border-radius: 5px;
+	background:linear-gradient(/*mir*/#d4d4d4, white);
+	box-shadow: 2px 2px 2px rgba(0, 0, 0, 0.6);
+	font-size: small;
+	color: /*tmi*/#737373;
+	padding:0px 15px 15px;
+	margin-right: 20px;
+}
+.item-MenuYear:hover {
+    background: /*hmy*/#fc0000;
+	color: white;
+}
+/*-----------$FORM-----------*/
+#title-directory {
+	text-align: right;
+	font-size: small;
+    color: gray;
+}
+#title-financialInformation {
+	color:/*hmy*/#fc0000;
+	padding:0px;
+	margin: 0px;
+}
+#form-uploadFile p {
+	font-size: medium;
+    color: black;
+}
+#requestStatus-label {
+    color: #FFFFFF;
+    font-weight: bold;
+    font-size: medium;
+    background-color: #00C617;
+    line-height: 60px;
+}
+#spinner {
+	text-align: center;
+}
+/*------------------------------------*\
+    $SECTION PUBLISHED DOCUMENTS
+\*------------------------------------*/
+.publishedDocuments {
+	width: 100%;
+	height: auto;
+}
+#file-table {
+    border: 0;
+    width: 100%;
+    text-align: center;
+	margin:20px 0px 0px;
+}
+#title-filetable {
+	text-align: left;
+    font-weight: bold;
+    font-size: large;
+    color:/*rcb*/#4a4a4a;
+}
+#cell-date {
+    font-weight: normal;
+    font-size: small;
+    color: black;
+	 border: 1px solid white;
+	 width: 30%;
+}
+#cell-filetable {
+	text-align: left;
+    font-weight: normal;
+    font-size: small;
+    color: black;
+	 border: 1px solid white;
+	 width: 60%;
+}
+#cell-typefile {
+	 display: inline;
+	 text-align: center;
+	 border: 1px solid white;
+	 width: 10%;
+}
+#cell-typefile:hover {
+	cursor: pointer; cursor: hand;
+}
+#row-filetable:nth-child(odd) {
+    background-color:/*arc2*/#e6e6e6;
+}
+#row-filetable:nth-child(even) {
+    background-color:/*arc1*/#cccccc;
+}
+/*------------------------------------*\
+    $RIGTH CONTENT
+\*------------------------------------*/
+#tilte-indicatortable {
+	 font-weight: normal;
+    font-size: large;
+    color: white;
+}
+
+.image-section {
+      width: 100%;
+      height: auto;
+}
+/*------------------------------------*\
+    $MEDIA ELEMENTS
+\*------------------------------------*/
+@media screen and (min-width: 320px)  and (max-width: 480px) { 
+}
+@media screen and (max-width: 960px) {
+header-inner {
+	width: 100%;
+}
+main, .header__inner, .content, .navHor, .subnavHor, .footer__inner {
+	width: 100%;
+	margin-left: auto;
+	margin-right: auto;
+}
+.left-content {
+	width: 100%;
+	height: 0;
+	visibility: hidden;
+	order:1;
+}
+.middle-content {
+	width: 100%;
+}
+.right-content {
+	width: 100%;
+	height: 0;
+	visibility: hidden;
+	order:2;
+}
+@media screen and (min-width:961px) {
+}
