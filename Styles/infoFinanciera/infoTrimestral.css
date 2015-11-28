@@ -14,6 +14,9 @@ background drop down         bdd               #ededed
 /*------------------------------------*\
     $HEADER
 \*------------------------------------*/
+.header-menu {
+	display: none;
+}
 .header-inner {
 	width: 1000px;
 	margin-left: auto;
@@ -151,7 +154,7 @@ footer {
 	padding:0px;
 	margin: 0px;
 }
-#form-uploadFile p {
+#newFile-form p {
 	font-size: medium;
     color: black;
 }
@@ -188,8 +191,9 @@ footer {
     font-weight: normal;
     font-size: small;
     color: black;
-	 border: 1px solid white;
-	 width: 30%;
+	border: 1px solid white;
+	width: 30%;
+	padding:3px;
 }
 #cell-filetable {
 	text-align: left;
@@ -231,30 +235,102 @@ footer {
     $MEDIA ELEMENTS
 \*------------------------------------*/
 @media screen and (min-width: 320px)  and (max-width: 480px) { 
+/*** Header ***/
+.header-inner  {
+	display:inline-block;
+	width:100%;
 }
-@media screen and (max-width: 960px) {
-header-inner {
-	width: 100%;
+.header-menu {
+	display: table-cell;
+	vertical-align: middle;
 }
-main, .header__inner, .content, .navHor, .subnavHor, .footer__inner {
-	width: 100%;
-	margin-left: auto;
-	margin-right: auto;
+.header-menu svg {
+	padding-right:10px;
+	width: 40px;
+	fill: #E0E0E0;
 }
-.left-content {
+.header-logo {
+	width:100%;
+	display: inline-table;
+	vertical-align: middle;
+	text-align: right;
+}
+/*** Bar Language ***/
+.topbar-languaje {
+	height:auto;
+	background: linear-gradient(/*tbl*/#a60e00,/*hmy*/#fc0000);
+}
+.topbar-languaje p {
+	font-size: 0.8em;
+}
+/*** Main Menu ***/
+.menu-horizontal {
+	z-index: 10;
+	width: 200px;
+	position: absolute;
+	-webkit-transform: translate(-250px, 0px);
+	transform: translate(-250px, 0px);
+	transition: transform 0.3s ease;
+}
+.menu-horizontal.open {
+	-webkit-transform: translate(0px, 0px);
+	transform: translate(0px, 0px);
+}
+.item-listmenuhorizontal {
+	display: list-item;
 	width: 100%;
-	height: 0;
-	visibility: hidden;
-	order:1;
+	text-align: left;
+	font-size: 1.2em;
+	line-height: 40px;
+	border-right: none;
+	border-bottom: 2px solid #771112;
+	padding:5px;
+}
+.item-listmenuhorizontal:last-child {
+	border-bottom: none;
+}
+/*** DropDown menu ***/
+.list-financialInformation {
+	position: relative;
+}
+.item-financialInformation {
+	display: list-item;
+	text-align: left;
+}
+/*** Sections ***/
+main {
+	width:100%;
+	background-color:white;
+}
+.content {
+	width:100%;
 }
 .middle-content {
+	padding:0;
+	margin:0;
 	width: 100%;
 }
-.right-content {
-	width: 100%;
-	height: 0;
-	visibility: hidden;
-	order:2;
+.right-content, .left-content {
+	display: none;
+}
+#newFile-form, #title-filetable {
+	text-align:center;
+}
+#title-directory {
+	font-size:0.8em;
+}
+}
+@media screen and (max-width: 960px) {
+.header  {
+	width:100%;
+}
+main {
+	background-color:white;
+	width:100%;
+}
+.content {
+	width:100%;
+}
 }
 @media screen and (min-width:961px) {
 }

@@ -14,6 +14,7 @@ class Connection
 	{
 		$this->Error = "Sin error";
 		$this->ConnectionID = mysql_connect($this->Host,$this->UserName,$this->Password);
+		mysql_set_charset('utf8',$this->ConnectionID);
 		$this->Cdb = mysql_select_db($this->Database,$this->ConnectionID);
 	}
 }

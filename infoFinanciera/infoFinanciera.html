@@ -1,295 +1,337 @@
 <!DOCTYPE html>
 <html lang="es">
-  <head>
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-	<meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <title>Informacion Trimestral</title>
-	<link rel="stylesheet" href="../Styles/base.css">
-	<link rel="stylesheet" href="../Styles/infoFinanciera/infoTrimestral.css">
-	<script src="http://code.jquery.com/jquery-1.9.1.js"></script>
-  </head>
-  <script type="text/javascript">
-	$("document").ready(function() {
-	    var lastItemMenuYear;
-		var currentSectionId = 1;
-	    refreshDivYears('1');
-		refreshPublishedDocuments('2015','1');
-		$('#currentdate').text( new Date());
-		function refreshDivYears(sectionId) {
-			 var data = {
-                "sectionId": sectionId
-            };
-			 data = $(this).serialize() + "&" + $.param(data);
-            $.ajax({
-                type: "POST",
-                url: "../PHP/infoFinanciera.php/getYears",
-                dataType: "json",
-				  data: data,
-                success: function(data) {
-                    if (data.hasOwnProperty("error")) {
-                        $('#requestStatus-label').text(data["error"]);
-                    } else {
-					      var navHTML = $('<ul class="list-MenuYear">');
-                        $.each(data, function(i, item) {
-                            navHTML = navHTML.append($('<li class="item-MenuYear">').text(item.year));
-						  });
-						  $('.menu-scrollVertical').append(navHTML);
-                    }
-                },
-                error: function(error) {
-						console.log(error);
-                    //alert('ERROR; ' + JSON.stringify(error));
-                }
-            });
-        }
-		function refreshPublishedDocuments(year,sectionId) {
-			 var data = {
-                "year": year,
-				  "sectionId":sectionId
-            };
-			 data = $(this).serialize() + "&" + $.param(data);
-			 $('#spinner').show();
-            $.ajax({
-                type: "POST",
-                url: "../PHP/infoFinanciera.php/getpublishedDocuments",
-                dataType: "json",
-				  data: data,
-                complete: function() {
-					$('#spinner').hide();
-                },
-                success: function(data) {
-					 console.log(data);
-                    if (data.hasOwnProperty("error")) {
-                        $('#requestStatus-label').text(data["error"]);
-                    } else {
-						  $( ".publishedDocuments" ).empty();
-					      var table;
-						   var section = 0;
-						   for(var i = 0; i < data.length; i++) {
-								var item = JSON.parse(data[i]);
-								if (section != item.quarterly  &  section!= 0) {
-									section = item.quarterly;
-									$('.publishedDocuments').append(table);
-									table = $('<table id="file-table">');
-									tRow = $('<tr>');
-									tRow = tRow.append(
-										  $('<th id="title-filetable" colspan="3">').text(item.title_quarterly)
-										  );
-									table = table.append(tRow);
-							   } else if (section == 0) {
-									section = item.quarterly;
-									table = $('<table id="file-table">');
-									tRow = $('<tr>');
-									tRow = tRow.append(
-										  $('<th id="title-filetable" colspan="3">').text(item.title_quarterly)
-										  );
-									table = table.append(tRow);
-							   }
-							   
-							   tRow = $('<tr id="row-filetable">');
-							   if (item.fileType == "pdf") {
-									tCellPDF = $('<td id="cell-typefile"><img src = "../Images/pdf-mini.png">').click(function() {
-													 var parent = $(this).closest('tr');
-													 var filename = parent.find('td:nth-child(4)').text();
-													 window.open('../Uploads/'+ filename);
-												});
-							   } else {
-									tCellPDF = $('<td id="cell-typefile"><img src = "../Images/file-mini.png">').click(function() {
-													 var parent = $(this).closest('tr');
-													 var filename = parent.find('td:nth-child(4)').text();
-													 window.open('../Uploads/'+ filename);
-												});
-							   }
-							   
-                            tRow = tRow.append(
-										  $('<td id="cell-date">').text(item.publicationDate),
-										  $('<td id="cell-filetable">').text(item.title),
-										  tCellPDF,
-										  $('<td style="display:none;">').text(item.filename)
-										  );
-							   table = table.append(tRow);
-							}
-							$('.publishedDocuments').append(table);
-                    }
-                },
-                error: function(error) { 
-						console.log(error);
-                    //alert('ERROR; ' + JSON.stringify(error));
-                }
-            });
-        }
-		$(document).on('click', "li.item-MenuYear", function() {
-			$( ".publishedDocuments" ).empty();
-			if (lastItemMenuYear != null) {
-				lastItemMenuYear.css({'background': 'linear-gradient(#d4d4d4, white)','color':'#737373'});
-			}
-			
-			lastItemMenuYear = $(this).closest('li');
-			var year = lastItemMenuYear.text();
-			lastItemMenuYear.css({'background': '#fc0000','color':'white'});
-			refreshPublishedDocuments(year,'1');
-		});
-		$("#newFile-form").submit(function() {
-		     $('#spinner').show();
-            var form = new FormData($(this)[0]);
-            $.ajax({
-                type: "POST",
-                url: "../PHP/uploadFile.php/uploadFile",
-                data: form,
-                cache: false,
-                contentType: false,
-                processData: false,
-                complete: function() {
-					$('#spinner').hide();
-                },
-                success: function(data) {
-                    if (data.hasOwnProperty("error")) {
-                        $('#requestStatus-label').text(data["error"]);
-                    } else {
-                        $('#requestStatus-label').text('El archivo se publico correctamente');
-                        $('#newFile-form')[0].reset();
-                    }
-                },
-                error: function(error) {
-                    alert('ERROR; ' + JSON.stringify(error));
-                }
-            });
-            return false;
-        });
-		$('#IdDropDownList1 li').on('click', function() {
-			$( ".menu-scrollVertical" ).empty();
-			$( ".publishedDocuments" ).empty();
-			var index = $(this).index() + 1;
-			currentSectionId = index;
-			var label = $(this).text();
-			$('#title-financialInformation').text(label);
-			$('#title-directory').text('Inicio|Información Financiera|'+label);
-			refreshDivYears(index);
-			refreshPublishedDocuments('2015', index);
-		});
-	});
-	
-		function showDropDownMenu (id) {
-			var e = document.getElementById(id);
-			if (e.style.display !== 'block') {
-				var submenus = document.getElementsByClassName('list-financialInformation');
-				for (var i = 0; i < submenus.length; ++i) {
-					var item = submenus[i]; 
-					item.style.display = 'none';
-					item.parentNode.style.backgroundColor = "#fa0011";
-				}
-	  
-				e.style.display = 'block';
-				e.parentNode.style.backgroundColor = "#bd0009";
-			}
+   <head>
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width, initial-scale=1">
+      <meta http-equiv="X-UA-Compatible" content="IE=edge">
+      <title>Informacion Trimestral</title>
+      <link rel="stylesheet" href="../Styles/base.css">
+      <link rel="stylesheet" href="../Styles/infoFinanciera/infoTrimestral.css">
+      <script src="http://code.jquery.com/jquery-1.9.1.js"></script>
+   </head>
+   <script type="text/javascript">
+      $("document").ready(function() {
+          var lastItemMenuYear;
+      	var currentSectionId = 1;
+          refreshDivYears('1');
+      	refreshPublishedDocuments('0','1');
+      	$('#currentdate').text(getISODateTime(new Date()));
+      	
+      	function getISODateTime(d) {
+    		var monthNames = [
+    						  "Enero", "Febrero", "Marzo",
+  							  "Abril", "Mayo", "Junio", "Julio",
+  						      "Agosto", "Septiembre", "Octubre",
+  							  "Noviembre", "Diciembre"
+							 ];
+
+			var date = new Date();
+			var day = date.getDate();
+			var monthIndex = date.getMonth();
+			var year = date.getFullYear();
+
+			return day + " " + monthNames[monthIndex] + " " + year;
 		}
-		function hideDropDownMenu (id) {
-			var e = document.getElementById(id);
-			if (e.style.display === 'block') {
-				e.style.display = 'none';
-				e.parentNode.style.backgroundColor = "#fa0011";
-			}
-		}
-  </script>
-  <body>
-	<header class="header">
-	   <div class="header-inner">
-			<div class="header-logo">
-				<img class="image-logo" src="../Images/img_logo.jpg" alt="Santander">
-			</div>
-		   <div>
-				<div class="topbar-languaje">
-					<p>RELACIÓN CON INVERSIONISTAS</p>
-					<p>English Versión</p>
-					<p id="currentdate">Martes 24 de nov 2015</p>
-				</div>
-				<div>
-					<nav class="menu-horizontal">
-					  <ul class="list-menuhorizontal">
-						<li class="item-listmenuhorizontal" id="item-investorRelations">Acerca de Grupo</li>
-						<li class="item-listmenuhorizontal" id="item-investorRelations">Gobierno Corporativo</li>
-						<li class="item-listmenuhorizontal" id="item-investorRelations" onMouseOver="showDropDownMenu('IdDropDownList1');" onMouseOut="hideDropDownMenu('IdDropDownList1');">Información Financiera
-							<ul id="IdDropDownList1"  class="list-financialInformation">
-								<li class="item-financialInformation">Información Trimestral</li>
-								<li class="item-financialInformation">Información Anual</li>
-								<li class="item-financialInformation">Memoria Anual</li>
-								<li class="item-financialInformation">Capitalización</li>
-								<li class="item-financialInformation">Subsidirias</li>
-							</ul>
-						</li>
-						<li class="item-listmenuhorizontal" id="item-investorRelations">Información para Inversionistas</li>
-					  </ul>
-					</nav>
-				</div>
-			</div>
-		<//div><!--end header-inner-->
-	</header>
-	<main>
-		 <section class="content">
-		    <aside class="left-content">
-				<img class="image-section" src="../Images/InfoFinanciera/tit_info_finan.png" alt="Información Financiera">
-				<img class="image-section" src="../Images/InfoFinanciera/boletines.png" alt="Información Financiera">
-			</aside>
-			<section class="middle-content">
-				<p id="title-directory">Inicio|Información Financiera|Información Trimestral</p>
-				<section class="uploadFiles">
-					<h1 id="title-financialInformation">Información trimestral</h1>
-					<div  class="scrollVertical">
-						<nav class="menu-scrollVertical"></nav>
-					</div>
-					<hr>
-					<form id="newFile-form"  action="../PHP/uploadFile.php/uploadFile" enctype="multipart/form-data" method="post">
-						<h2 id="title-filetable">Publicar archivos</h2>
-						<div id="spinner" class="spinner" style="display:none;">
-							<img id="img-spinner" src="../Images/loader.gif" alt="Loading"/>
-						</div>
-						<p>
-							<input type="file" name="fileField" id="fileField">
-						</p>
-						<p>Título: <br>
-							<textarea name="titleFile" id="titleFile"></textarea>
-						</p>
-						<p>Año: <br>
-							<select name="yearFile" id="yearFile">
-								<option>Año</option>
-								<option>2015</option>
-								<option>2014</option>
-								<option>2013</option>
-								<option>2012</option>
-								<option>2011</option>
-								<option>2010</option>
-								<option>2009</option>
-								<option>2008</option>
-								<option>2007</option>
-							</select>
-						</p>
-						<p>Trimestre: <br>
-							<select name="quarterFile" id="quarterFile">
-								<option value="">Seleccionar trimestre</option>
-								<option value="1">Primero</option>
-								<option value="2">Segundo</option>
-								<option value="3">Tercero</option>
-								<option value="4">Cuarto</option >
-							</select>
-						</p>
-						<input type="submit" value="Publicar" name="submit">
-					</form>
-					<label id="requestStatus-label"></label>
-				</section >
-				<section class="publishedDocuments">
-				</section>
-			</section>
-			<aside class="right-content">
-				<img class="image-section" src="../Images/InfoFinanciera/indicadores.png" />
-				<img class="image-section" src="../Images/InfoFinanciera/inversion.png" />
-				<img class="image-section" src="../Images/InfoFinanciera/calendario.png" />
-				<img class="image-section" src="../Images/InfoFinanciera/contacto.png" />
-			</aside>
-		 </section>
-		 <footer>
-			<p>Derechos Reservados 2012, Banco Santander (México) S.A., Institución de Banca Múltiple, Grupo Financiero Santander.</p>
-		 </footer>
-	</main>
-	</body>
+
+      	function refreshDivYears(sectionId) {
+      		$( ".menu-scrollVertical" ).empty();
+      		 var data = {
+                     "sectionId": sectionId
+                 };
+      		 data = $(this).serialize() + "&" + $.param(data);
+                 $.ajax({
+                     type: "POST",
+                     url: "../PHP/infoFinanciera.php/getYears",
+                     dataType: "json",
+      			  	 data: data,
+                     success: function(data) {
+                         if (data.hasOwnProperty("error")) {
+                             $('#requestStatus-label').text(data["error"]);
+                         } else {
+      				      var navHTML = $('<ul class="list-MenuYear">');
+                             $.each(data, function(i, item) {
+                                 navHTML = navHTML.append($('<li class="item-MenuYear">').text(item.year));
+      					  });
+      					  $('.menu-scrollVertical').append(navHTML);
+                         }
+                     },
+                     error: function(error) {
+      					console.log(error);
+                         //alert('ERROR; ' + JSON.stringify(error));
+                     }
+                 });
+             }
+      	function refreshPublishedDocuments(year,sectionId) {
+      		 $( ".publishedDocuments" ).empty();
+      		 var data = {
+                     "year": year,
+      			  "sectionId":sectionId
+                 };
+      		 data = $(this).serialize() + "&" + $.param(data);
+      		 $('#spinner').show();
+                 $.ajax({
+                     type: "POST",
+                     url: "../PHP/infoFinanciera.php/getpublishedDocuments",
+                     dataType: "json",
+      			  data: data,
+                     complete: function() {
+      				$('#spinner').hide();
+                     },
+                     success: function(data) {
+      				 //console.log(data);
+                         if (data.hasOwnProperty("error")) {
+                             $('#requestStatus-label').text(data["error"]);
+                         } else {
+      					  $( ".publishedDocuments" ).empty();
+      				      var table;
+      					   var section = 0;
+      					   for(var i = 0; i < data.length; i++) {
+      							var item = JSON.parse(data[i]);
+      							if (section != item.quarterly  &  section!= 0) {
+      								section = item.quarterly;
+      								$('.publishedDocuments').append(table);
+      								table = $('<table id="file-table">');
+      								tRow = $('<tr>');
+      								tRow = tRow.append(
+      									  $('<th id="title-filetable" colspan="3">').text(item.title_quarterly)
+      									  );
+      								table = table.append(tRow);
+      						   } else if (section == 0) {
+      								section = item.quarterly;
+      								table = $('<table id="file-table">');
+      								tRow = $('<tr>');
+      								tRow = tRow.append(
+      									  $('<th id="title-filetable" colspan="3">').text(item.title_quarterly)
+      									  );
+      								table = table.append(tRow);
+      						   }
+      						   
+      						   tRow = $('<tr id="row-filetable">');
+      						   if (item.fileType == "pdf") {
+      								tCellPDF = $('<td id="cell-typefile"><img src = "../Images/ico_pdf.gif">').click(function() {
+      												 var parent = $(this).closest('tr');
+      												 var filename = parent.find('td:nth-child(4)').text();
+      												 window.open('../Uploads/'+ filename);
+      											});
+      						   } else {
+      								tCellPDF = $('<td id="cell-typefile"><img src = "../Images/file-mini.png">').click(function() {
+      												 var parent = $(this).closest('tr');
+      												 var filename = parent.find('td:nth-child(4)').text();
+      												 window.open('../Uploads/'+ filename);
+      											});
+      						   }
+      						   
+                                 tRow = tRow.append(
+      									  $('<td id="cell-date">').text(item.publicationDate),
+      									  $('<td id="cell-filetable">').text(item.title),
+      									  tCellPDF,
+      									  $('<td style="display:none;">').text(item.filename)
+      									  );
+      						   table = table.append(tRow);
+      						}
+      						$('.publishedDocuments').append(table);
+                         }
+                     },
+                     error: function(error) { 
+      					console.log(error);
+                     }
+                 });
+             }
+      	$(document).on('click', "li.item-MenuYear", function() {
+      		if (lastItemMenuYear != null) {
+      			lastItemMenuYear.css({'background': 'linear-gradient(#d4d4d4, white)','color':'#737373'});
+      		}
+      		
+      		lastItemMenuYear = $(this).closest('li');
+      		var year = lastItemMenuYear.text();
+      		lastItemMenuYear.css({'background': '#fc0000','color':'white'});
+      		$('#requestStatus-label').text('');
+      		refreshPublishedDocuments(year,currentSectionId);
+      	});
+      	$("#newFile-form").submit(function() {
+      		console.log("Sección actual:"+currentSectionId)
+      		$('#sectionFile').text(currentSectionId);
+      	    $('#spinner').show();
+                 var form = new FormData($(this)[0]);
+                 $.ajax({
+                     type: "POST",
+                     url: "../PHP/uploadFile.php/uploadFile",
+                     data: form,
+                     cache: false,
+                     contentType: false,
+                     processData: false,
+                     complete: function() {
+      				$('#spinner').hide();
+                     },
+                     success: function(data) {
+                         if (data.hasOwnProperty("error")) {
+                             $('#requestStatus-label').text(data["error"]);
+                         } else {
+                             $('#requestStatus-label').text('El archivo se publico correctamente');
+                             var year = $( "#yearFile option:selected" ).text();
+                             $('#newFile-form')[0].reset();
+                             console.log(year + currentSectionId);
+                             refreshDivYears(currentSectionId);
+      						 refreshPublishedDocuments(year, currentSectionId);
+                         }
+                     },
+                     error: function(error) {
+                         alert('ERROR; ' + JSON.stringify(error));
+                     }
+                 });
+                 return false;
+             });
+      	$('#IdDropDownList1 li').on('click', function() {
+      		var index = $(this).index() + 1;
+      		currentSectionId = index;
+      		var label = $(this).text();
+      		$('#requestStatus-label').text('');
+      		$('#title-financialInformation').text(label);
+      		$('#title-directory').text('Inicio|Información Financiera|'+label);
+      		refreshDivYears(index);
+      		refreshPublishedDocuments('0', index);
+      	});
+      });
+      
+      	function showDropDownMenu (id) {
+      		var e = document.getElementById(id);
+      		if (e.style.display !== 'block') {
+      			var submenus = document.getElementsByClassName('list-financialInformation');
+      			for (var i = 0; i < submenus.length; ++i) {
+      				var item = submenus[i]; 
+      				item.style.display = 'none';
+      				item.parentNode.style.backgroundColor = "#fa0011";
+      			}
+        
+      			e.style.display = 'block';
+      			e.parentNode.style.backgroundColor = "#bd0009";
+      		}
+      	}
+      	function hideDropDownMenu (id) {
+      		var e = document.getElementById(id);
+      		if (e.style.display === 'block') {
+      			e.style.display = 'none';
+      			e.parentNode.style.backgroundColor = "#fa0011";
+      		}
+      	}
+      	function showMenu (e) {
+      		var drawer = document.querySelector('.menu-horizontal');
+      		drawer.classList.toggle('open');
+      	}
+      	function hiddenMenu (e) {
+      		var drawer = document.querySelector('.menu-horizontal');
+      		drawer.classList.remove('open');
+      	}
+       
+   </script>
+   <body>
+      <header class="header">
+         <div class="header-inner">
+            <div class="header-logo">
+               <img class="image-logo" src="../Images/img_logo.jpg" alt="Santander">
+               <a id="menu" class="header-menu" onClick="showMenu(event);">
+                  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+                     <path d="M2 6h20v3H2zm0 5h20v3H2zm0 5h20v3H2z"/>
+                  </svg>
+               </a>
+            </div>
+            <div>
+               <div class="topbar-languaje">
+                  <p>RELACIÓN CON INVERSIONISTAS</p>
+                  <p>English Versión</p>
+                  <p id="currentdate">Martes 24 de nov 2015</p>
+               </div>
+               <div>
+                  <nav class="menu-horizontal">
+                     <ul class="list-menuhorizontal">
+                        <li class="item-listmenuhorizontal" id="item-investorRelations">Acerca de Grupo</li>
+                        <li class="item-listmenuhorizontal" id="item-investorRelations">Gobierno Corporativo</li>
+                        <li class="item-listmenuhorizontal" id="item-investorRelations" onMouseOver="showDropDownMenu('IdDropDownList1');" onMouseOut="hideDropDownMenu('IdDropDownList1');">
+                           Información Financiera
+                           <ul id="IdDropDownList1"  class="list-financialInformation">
+                              <li class="item-financialInformation">Información Trimestral</li>
+                              <li class="item-financialInformation">Información Anual</li>
+                              <li class="item-financialInformation">Memoria Anual</li>
+                              <li class="item-financialInformation">Capitalización</li>
+                              <li class="item-financialInformation">Subsidirias</li>
+                           </ul>
+                        </li>
+                        <li class="item-listmenuhorizontal" id="item-investorRelations">Información para Inversionistas</li>
+                     </ul>
+                  </nav>
+               </div>
+            </div>
+         </div>
+         <!--end header-inner-->
+      </header>
+      <main>
+         <section class="content">
+            <aside class="left-content">
+               <img class="image-section" src="../Images/InfoFinanciera/tit_info_finan.png" alt="Información Financiera">
+               <img class="image-section" src="../Images/InfoFinanciera/boletines.png" alt="Información Financiera">
+            </aside>
+            <section class="middle-content">
+               <p id="title-directory">Inicio|Información Financiera|Información Trimestral</p>
+               <section class="uploadFiles">
+                  <h1 id="title-financialInformation">Información trimestral</h1>
+                  <div  class="scrollVertical">
+                     <nav class="menu-scrollVertical"></nav>
+                  </div>
+                  <hr>
+                  <form id="newFile-form"  action="../PHP/uploadFile.php/uploadFile" enctype="multipart/form-data" method="post">
+                     <h2 id="title-filetable">Publicar archivos</h2>
+                     <div id="spinner" class="spinner" style="display:none;">
+                        <img id="img-spinner" src="../Images/loader.gif" alt="Loading"/>
+                     </div>
+                     <textarea name="sectionFile" id="sectionFile" style="display:none;"></textarea>
+                     <p>
+                        <input type="file" name="fileField" id="fileField">
+                     </p>
+                     <p>Título: <br>
+                        <textarea name="titleFile" id="titleFile"></textarea>
+                     </p>
+                     <p>
+                        Año: <br>
+                        <select name="yearFile" id="yearFile">
+                           <option>Año</option>
+                           <option>2015</option>
+                           <option>2014</option>
+                           <option>2013</option>
+                           <option>2012</option>
+                           <option>2011</option>
+                           <option>2010</option>
+                           <option>2009</option>
+                           <option>2008</option>
+                           <option>2007</option>
+                        </select>
+                     </p>
+                     <p>
+                        Trimestre: <br>
+                        <select name="quarterFile" id="quarterFile">
+                           <option value="">Seleccionar trimestre</option>
+                           <option value="1">Primero</option>
+                           <option value="2">Segundo</option>
+                           <option value="3">Tercero</option>
+                           <option value="4">Cuarto</option >
+                        </select>
+                     </p>
+                     <input type="submit" value="Publicar" name="submit">
+                  </form>
+                  <label id="requestStatus-label"></label>
+               </section >
+               <section class="publishedDocuments">
+               </section>
+            </section>
+            <aside class="right-content">
+               <img class="image-section" src="../Images/InfoFinanciera/indicadores.png" />
+               <img class="image-section" src="../Images/InfoFinanciera/inversion.png" />
+               <img class="image-section" src="../Images/InfoFinanciera/calendario.png" />
+               <img class="image-section" src="../Images/InfoFinanciera/contacto.png" />
+            </aside>
+         </section>
+         <footer>
+            <p>Derechos Reservados 2012, Banco Santander (México) S.A., Institución de Banca Múltiple, Grupo Financiero Santander.</p>
+         </footer>
+      </main>
+   </body>
 </html>

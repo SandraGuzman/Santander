@@ -8,6 +8,7 @@ $resource = end($uri);
 
 if (strcmp($resource, 'uploadFile') == 0) {
     if ($_FILES["fileField"]) {
+        //header('Content-Type: text/html; charset=utf-8');
         $json      = array();
         $file_name = $_FILES["fileField"]["name"];
         $file_size = $_FILES["fileField"]["size"];
@@ -18,6 +19,7 @@ if (strcmp($resource, 'uploadFile') == 0) {
         $title   = $_POST["titleFile"];
         $year    = $_POST["yearFile"];
         $quarter = $_POST["quarterFile"];
+        $section   = $_POST["sectionFile"];
         
         $target_dir  = "../Uploads/";
         $target_file = $target_dir . $file_name;
@@ -46,7 +48,7 @@ if (strcmp($resource, 'uploadFile') == 0) {
                 $Conn = new Connection();
                 $Conn->connect();
                 $query = "INSERT INTO uploadFiles (title,filename, fileType,publicationDate,year,quarterly,section_id)
-							VALUES ('" . $title . "','" . $file_name . "','" . $file_ext . "','" . date("Y/m/d") . "','" . $year . "','" . $quarter . "',1 )";
+							VALUES ('" . $title . "','" . $file_name . "','" . $file_ext . "','" . date("Y/m/d") . "','" . $year . "','" . $quarter . "','". $section ."' )";
                 
                 $result = mysql_query($query, $Conn->ConnectionID) or die(mysql_error());
                 $file_id = mysql_insert_id();
@@ -133,5 +135,7 @@ $json = array(
 header('Content-Type: application/json');
 echo json_encode($json);
 }*/
+
+
 
 ?>

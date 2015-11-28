@@ -11,7 +11,7 @@ if (strcmp($resource, 'getYears') == 0) {
 	$Conn = new Connection();
 	$Conn->connect();
 	
-	$query = "SELECT year FROM `uploadFiles` WHERE section_id=".$sectionId." GROUP BY year";
+	$query = "SELECT year FROM `uploadFiles` WHERE section_id='".$sectionId."' GROUP BY year";
 	$result = mysql_query($query, $Conn->ConnectionID) or die(mysql_error());
 	
 	if (!$result) {
@@ -32,7 +32,19 @@ if (strcmp($resource, 'getYears') == 0) {
 	$json = array();
 	$Conn = new Connection();
 	$Conn->connect();
-	$query = "SELECT * FROM `uploadFiles` WHERE section_id=".$sectionId." AND year='".$year."' ORDER BY `quarterly` ASC";
+	
+	$query = "";
+	$queryYear;
+	
+	if ($year == 0) {
+		$queryYear = "SELECT MAX(year) as year FROM uploadFiles WHERE section_id='".$sectionId."'";
+		$resultYear = mysql_query($queryYear, $Conn->ConnectionID) or die(mysql_error());
+		$row = mysql_fetch_object($resultYear);
+		$query = "SELECT * FROM `uploadFiles` WHERE section_id=".$sectionId." AND year='".$row->year."' ORDER BY `quarterly` ASC";
+	} else {
+		$query = "SELECT * FROM `uploadFiles` WHERE section_id=".$sectionId." AND year='".$year."' ORDER BY `quarterly` ASC";
+	}
+
 	$result = mysql_query($query, $Conn->ConnectionID) or die(mysql_error());
 	
 	if (!$result) {

@@ -7,6 +7,9 @@ top bar language            tbl               #c91100
 header, nav, footer, section, article, div {
 	box-sizing: border-box;
 }
+* {
+	box-sizing: border-box;
+}
 /*------------------------------------*\
     $A HREF
 \*------------------------------------*/
